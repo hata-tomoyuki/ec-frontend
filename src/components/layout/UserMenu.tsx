@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { mockUser } from "@/data/mock";
 
 export default function UserMenu() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    setOpen(false);
+    console.log("ログアウト");
+    router.push("/login");
+  };
 
   return (
     <div className="relative">
@@ -38,6 +46,7 @@ export default function UserMenu() {
                 { href: "/account/orders", label: "注文履歴" },
                 { href: "/account/addresses", label: "住所管理" },
                 { href: "/account/profile", label: "プロフィール" },
+                { href: "/admin", label: "管理画面" },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -49,6 +58,14 @@ export default function UserMenu() {
                 </Link>
               ))}
             </nav>
+            <div className="border-t border-stone-100 py-1">
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-stone-50 transition-colors"
+              >
+                ログアウト
+              </button>
+            </div>
           </div>
         </>
       )}
