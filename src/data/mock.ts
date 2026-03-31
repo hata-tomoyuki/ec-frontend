@@ -4,6 +4,7 @@ import type {
   Product,
   CartItem,
   Order,
+  OrderStatus,
   Address,
 } from "@/types";
 
@@ -314,6 +315,17 @@ export const mockOrders: Order[] = [
     created_at: "2024-06-10T08:00:00Z",
     updated_at: "2024-06-10T08:00:00Z",
   },
+];
+
+export const orderStatusOptions: {
+  value: OrderStatus;
+  label: string;
+}[] = [
+  { value: "pending", label: "注文受付" },
+  { value: "confirmed", label: "確認済み" },
+  { value: "shipped", label: "発送済み" },
+  { value: "delivered", label: "配達完了" },
+  { value: "cancelled", label: "キャンセル" },
 ];
 
 export function formatPrice(priceInSen: number): string {
