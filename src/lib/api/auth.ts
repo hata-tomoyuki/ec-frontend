@@ -77,9 +77,11 @@ export async function registerAction(
   _prevState: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
-  const name = formData.get("name") as string;
+  const lastName = formData.get("last_name") as string;
+  const firstName = formData.get("first_name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const name = `${lastName} ${firstName}`;
 
   try {
     await api.post<RegisterResponse>("/auth/register", {
