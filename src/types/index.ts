@@ -1,8 +1,20 @@
 export interface User {
-  id: string;
+  id: number;
+  name: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  role: "customer" | "admin";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Address {
+  id: number;
+  user_id: number;
+  street: string;
+  city: string;
+  state: string;
+  zip_code: string;
+  country: string;
   created_at: string;
   updated_at: string;
 }
@@ -29,46 +41,45 @@ export interface Product {
   created_at: string;
 }
 
+// CartItem — バックエンドはフラット構造（product をネストせず、product_name / product_price_in_cents を直接持つ）
 export interface CartItem {
-  id: string;
-  product_id: string;
-  product: Product;
+  id: number;
+  cart_id: number;
+  product_id: number;
   quantity: number;
-}
-
-export interface Address {
-  id: string;
-  user_id: string;
-  postal_code: string;
-  prefecture: string;
-  city: string;
-  line1: string;
-  line2: string;
-  is_default: boolean;
-}
-
-export type OrderStatus =
-  | "pending"
-  | "confirmed"
-  | "shipped"
-  | "delivered"
-  | "cancelled";
-
-export interface OrderItem {
-  id: string;
-  product_id: string;
   product_name: string;
-  price: number;
-  quantity: number;
+  product_price_in_cents: number;
 }
 
-export interface Order {
-  id: string;
-  user_id: string;
+// OrderStatus — バックエンドは3種のみ（confirmed / shipped / delivered は存在しない）
+export type OrderStatus = "pending" | "completed" | "cancelled";
+
+// OrderRow — バックエンドが返すフラット行（1注文に複数商品がある場合、同じ order id で複数行返る）
+export interface OrderRow {
+  id: number;
+  customer_id: number;
   status: OrderStatus;
-  total: number;
-  items: OrderItem[];
-  shipping_address: Address;
   created_at: string;
   updated_at: string;
+  product_id: number;
+  quantity: number;
+  price_in_cents: number;
+}
+
+// Order — フロントエンド表示用（OrderRow[] から変換して使う）
+export interface Order {
+  id: number;
+  customer_id: number;
+  status: OrderStatus;
+  items: OrderItem[];
+  total: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// OrderItem — Order 内の各商品
+export interface OrderItem {
+  product_id: number;
+  quantity: number;
+  price_in_cents: number;
 }
