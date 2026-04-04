@@ -1,4 +1,5 @@
 import { getCart } from "@/lib/api/cart";
+import { getCartTotalQuantity } from "@/lib/utils";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CartItemRow from "@/components/cart/CartItemRow";
 import CartSummary from "@/components/cart/CartSummary";
@@ -31,7 +32,7 @@ export default async function CartPage() {
         items={[{ label: "ホーム", href: "/" }, { label: "カート" }]}
       />
       <h1 className="text-2xl font-bold text-stone-900 mt-6 mb-8">
-        カート ({items.length}点)
+        カート ({getCartTotalQuantity(items)}点)
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

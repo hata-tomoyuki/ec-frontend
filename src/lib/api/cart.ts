@@ -3,7 +3,8 @@ import { api } from "./client";
 
 export async function getCart(): Promise<CartItem[]> {
   const data = await api.get<CartItem[] | null>("/cart");
-  return data ?? [];
+  const items = data ?? [];
+  return items.sort((a, b) => a.id - b.id);
 }
 
 export function addCartItem(

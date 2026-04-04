@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getCart } from "@/lib/api/cart";
 import { getMe } from "@/lib/api/users";
+import { getCartTotalQuantity } from "@/lib/utils";
 
 const sidebarLinks = [
   { href: "/account", label: "マイページ" },
@@ -29,7 +30,7 @@ async function getHeaderData() {
 
   try {
     const items = await getCart();
-    cartItemCount = items.length;
+    cartItemCount = getCartTotalQuantity(items);
   } catch {
     // カート取得失敗
   }
