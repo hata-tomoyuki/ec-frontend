@@ -56,9 +56,7 @@ export default function AddressForm({ address }: AddressFormProps) {
         onChange={(e) => setLine2(e.target.value)}
       />
       <div className="flex gap-4">
-        <Button type="submit">
-          {address ? "更新する" : "追加する"}
-        </Button>
+        <Button type="submit">{address ? "更新する" : "追加する"}</Button>
         <Button
           type="button"
           variant="outline"

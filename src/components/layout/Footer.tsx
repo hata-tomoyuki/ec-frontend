@@ -15,32 +15,49 @@ export default function Footer() {
             <h4 className="text-white font-semibold text-sm mb-3">ショップ</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/products" className="hover:text-white transition-colors">
+                <Link
+                  href="/products"
+                  className="hover:text-white transition-colors"
+                >
                   商品一覧
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-white transition-colors">
+                <Link
+                  href="/categories"
+                  className="hover:text-white transition-colors"
+                >
                   カテゴリ
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-semibold text-sm mb-3">アカウント</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">
+              アカウント
+            </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/account" className="hover:text-white transition-colors">
+                <Link
+                  href="/account"
+                  className="hover:text-white transition-colors"
+                >
                   マイページ
                 </Link>
               </li>
               <li>
-                <Link href="/account/orders" className="hover:text-white transition-colors">
+                <Link
+                  href="/account/orders"
+                  className="hover:text-white transition-colors"
+                >
                   注文履歴
                 </Link>
               </li>
               <li>
-                <Link href="/account/addresses" className="hover:text-white transition-colors">
+                <Link
+                  href="/account/addresses"
+                  className="hover:text-white transition-colors"
+                >
                   住所管理
                 </Link>
               </li>

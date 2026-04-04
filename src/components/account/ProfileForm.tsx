@@ -38,9 +38,7 @@ export default function ProfileForm() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <div className="flex items-center gap-4">
-        <Button type="submit">
-          {saved ? "保存しました" : "保存する"}
-        </Button>
+        <Button type="submit">{saved ? "保存しました" : "保存する"}</Button>
       </div>
     </form>
   );

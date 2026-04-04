@@ -71,8 +71,7 @@ export default async function OrderDetailPage({
             {order.shipping_address.prefecture}
             {order.shipping_address.city}
             {order.shipping_address.line1}
-            {order.shipping_address.line2 &&
-              ` ${order.shipping_address.line2}`}
+            {order.shipping_address.line2 && ` ${order.shipping_address.line2}`}
           </p>
         </Card>
 

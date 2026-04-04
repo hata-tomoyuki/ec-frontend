@@ -21,11 +21,7 @@ export default function HomePage() {
               厳選されたアイテムを取り揃えたオンラインストアです。
               ファッション、家電、食品まで幅広くお届けします。
             </p>
-            <Button
-              href="/products"
-              variant="secondary"
-              size="lg"
-            >
+            <Button href="/products" variant="secondary" size="lg">
               商品を見る
             </Button>
           </div>
@@ -73,9 +69,7 @@ export default function HomePage() {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-stone-900">
-              おすすめ商品
-            </h2>
+            <h2 className="text-2xl font-bold text-stone-900">おすすめ商品</h2>
             <Link
               href="/products"
               className="text-sm text-teal-700 hover:text-teal-800 font-medium transition-colors"
@@ -97,7 +91,8 @@ export default function HomePage() {
           {[
             {
               title: "安心の品質",
-              description: "厳選した商品のみを取り扱い、品質管理を徹底しています。",
+              description:
+                "厳選した商品のみを取り扱い、品質管理を徹底しています。",
               icon: (
                 <path
                   strokeLinecap="round"
@@ -108,7 +103,8 @@ export default function HomePage() {
             },
             {
               title: "迅速な配送",
-              description: "ご注文から最短翌日にお届け。全国送料無料でお届けします。",
+              description:
+                "ご注文から最短翌日にお届け。全国送料無料でお届けします。",
               icon: (
                 <path
                   strokeLinecap="round"
@@ -119,7 +115,8 @@ export default function HomePage() {
             },
             {
               title: "簡単返品",
-              description: "商品到着後30日以内なら、理由を問わず返品・交換が可能です。",
+              description:
+                "商品到着後30日以内なら、理由を問わず返品・交換が可能です。",
               icon: (
                 <path
                   strokeLinecap="round"

@@ -21,10 +21,7 @@ export default function AdminDashboardPage() {
           value={mockProducts.length}
           subtitle={`${mockCategories.length} カテゴリ`}
         />
-        <AdminStatsCard
-          title="カテゴリ数"
-          value={mockCategories.length}
-        />
+        <AdminStatsCard title="カテゴリ数" value={mockCategories.length} />
         <AdminStatsCard title="注文数" value={mockOrders.length} />
         <AdminStatsCard
           title="未処理注文"

@@ -22,7 +22,7 @@ export default function AdminProductForm({
   const [name, setName] = useState(product?.name ?? "");
   const [description, setDescription] = useState(product?.description ?? "");
   const [price, setPrice] = useState(
-    product ? String(product.price / 100) : ""
+    product ? String(product.price / 100) : "",
   );
   const [stock, setStock] = useState(product ? String(product.stock) : "");
   const [categoryId, setCategoryId] = useState(product?.category_id ?? "");

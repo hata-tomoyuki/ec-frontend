@@ -13,9 +13,7 @@ export default function AdminStatsCard({
     <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
       <p className="text-sm text-stone-500">{title}</p>
       <p className="text-3xl font-bold text-stone-900 mt-1">{value}</p>
-      {subtitle && (
-        <p className="text-sm text-stone-500 mt-1">{subtitle}</p>
-      )}
+      {subtitle && <p className="text-sm text-stone-500 mt-1">{subtitle}</p>}
     </div>
   );
 }

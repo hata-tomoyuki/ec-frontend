@@ -47,16 +47,17 @@ export default function RegisterForm() {
           required
           placeholder="••••••••"
         />
-        {state.error && (
-          <p className="text-sm text-red-600">{state.error}</p>
-        )}
+        {state.error && <p className="text-sm text-red-600">{state.error}</p>}
         <Button type="submit" className="w-full" disabled={pending}>
           {pending ? "登録中..." : "登録する"}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-stone-600">
         アカウントをお持ちですか？{" "}
-        <Link href="/login" className="text-teal-700 hover:underline font-medium">
+        <Link
+          href="/login"
+          className="text-teal-700 hover:underline font-medium"
+        >
           ログイン
         </Link>
       </p>

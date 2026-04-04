@@ -1,5 +1,9 @@
 import { notFound } from "next/navigation";
-import { mockProducts, getProductById, getProductsByCategory } from "@/data/mock";
+import {
+  mockProducts,
+  getProductById,
+  getProductsByCategory,
+} from "@/data/mock";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ProductDetailInfo from "@/components/product/ProductDetailInfo";
 import AddToCartButton from "@/components/product/AddToCartButton";
@@ -40,9 +44,7 @@ export default async function ProductDetailPage({
         <div
           className={`aspect-square rounded-xl bg-gradient-to-br ${product.image_color} flex items-center justify-center`}
         >
-          <span className="text-white/70 text-lg font-medium">
-            商品画像
-          </span>
+          <span className="text-white/70 text-lg font-medium">商品画像</span>
         </div>
 
         {/* Product info */}
@@ -55,9 +57,7 @@ export default async function ProductDetailPage({
       {/* Related products */}
       {relatedProducts.length > 0 && (
         <section className="mt-16">
-          <h2 className="text-xl font-bold text-stone-900 mb-6">
-            関連商品
-          </h2>
+          <h2 className="text-xl font-bold text-stone-900 mb-6">関連商品</h2>
           <ProductGrid products={relatedProducts} />
         </section>
       )}

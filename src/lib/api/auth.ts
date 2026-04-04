@@ -61,7 +61,10 @@ export async function loginAction(
   const password = formData.get("password") as string;
 
   try {
-    const data = await api.post<LoginResponse>("/auth/login", { email, password });
+    const data = await api.post<LoginResponse>("/auth/login", {
+      email,
+      password,
+    });
     await setAuthCookies(data);
   } catch (error) {
     if (error instanceof ApiError) {

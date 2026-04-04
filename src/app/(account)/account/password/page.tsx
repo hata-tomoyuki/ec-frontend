@@ -8,9 +8,7 @@ export const metadata = {
 export default function PasswordPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold text-stone-900 mb-8">
-        パスワード変更
-      </h1>
+      <h1 className="text-2xl font-bold text-stone-900 mb-8">パスワード変更</h1>
       <Card>
         <PasswordForm />
       </Card>

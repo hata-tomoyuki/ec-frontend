@@ -14,9 +14,7 @@ export default function OrderCard({ order }: OrderCardProps) {
     <Link href={`/account/orders/${order.id}`} className="block group">
       <div className="bg-white rounded-xl border border-stone-200 p-5 hover:shadow-md transition-shadow">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-mono text-stone-500">
-            {order.id}
-          </span>
+          <span className="text-sm font-mono text-stone-500">{order.id}</span>
           <StatusBadge status={order.status} />
         </div>
         <div className="flex items-center justify-between">

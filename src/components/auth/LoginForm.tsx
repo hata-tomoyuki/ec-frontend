@@ -9,7 +9,10 @@ import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
 
 export default function LoginForm() {
-  const [state, formAction, pending] = useActionState<AuthState, FormData>(loginAction, {});
+  const [state, formAction, pending] = useActionState<AuthState, FormData>(
+    loginAction,
+    {},
+  );
 
   return (
     <Card>
@@ -29,16 +32,17 @@ export default function LoginForm() {
           required
           placeholder="••••••••"
         />
-        {state.error && (
-          <p className="text-sm text-red-600">{state.error}</p>
-        )}
+        {state.error && <p className="text-sm text-red-600">{state.error}</p>}
         <Button type="submit" className="w-full" disabled={pending}>
           {pending ? "ログイン中..." : "ログイン"}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-stone-600">
         アカウントをお持ちでないですか？{" "}
-        <Link href="/register" className="text-teal-700 hover:underline font-medium">
+        <Link
+          href="/register"
+          className="text-teal-700 hover:underline font-medium"
+        >
           新規登録
         </Link>
       </p>

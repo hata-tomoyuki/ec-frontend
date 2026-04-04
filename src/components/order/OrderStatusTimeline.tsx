@@ -41,7 +41,10 @@ export default function OrderStatusTimeline({
         const isCompleted = i <= currentIndex;
         const isCurrent = i === currentIndex;
         return (
-          <div key={step.key} className="flex items-center flex-1 last:flex-none">
+          <div
+            key={step.key}
+            className="flex items-center flex-1 last:flex-none"
+          >
             <div className="flex flex-col items-center">
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
@@ -51,8 +54,18 @@ export default function OrderStatusTimeline({
                 } ${isCurrent ? "ring-2 ring-teal-700/30" : ""}`}
               >
                 {isCompleted ? (
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 ) : (
                   i + 1
@@ -60,9 +73,7 @@ export default function OrderStatusTimeline({
               </div>
               <span
                 className={`mt-2 text-xs ${
-                  isCompleted
-                    ? "text-teal-700 font-medium"
-                    : "text-stone-400"
+                  isCompleted ? "text-teal-700 font-medium" : "text-stone-400"
                 }`}
               >
                 {step.label}

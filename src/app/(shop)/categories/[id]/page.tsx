@@ -40,9 +40,7 @@ export default async function CategoryDetailPage({
       <div
         className={`mt-8 rounded-xl bg-gradient-to-br ${category.image_color} p-8 sm:p-12 text-white`}
       >
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-          {category.name}
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{category.name}</h1>
         <p className="text-white/80">{category.description}</p>
       </div>
 

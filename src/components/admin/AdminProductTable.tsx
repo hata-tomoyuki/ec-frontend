@@ -24,9 +24,7 @@ export default function AdminProductTable({
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-12 text-stone-500">
-        商品がありません
-      </div>
+      <div className="text-center py-12 text-stone-500">商品がありません</div>
     );
   }
 

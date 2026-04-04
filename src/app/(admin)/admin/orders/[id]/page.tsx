@@ -22,9 +22,7 @@ export default async function AdminOrderDetailPage({
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-stone-900">
-          注文 {order.id}
-        </h1>
+        <h1 className="text-2xl font-bold text-stone-900">注文 {order.id}</h1>
         <StatusBadge status={order.status} />
       </div>
 
@@ -32,16 +30,11 @@ export default async function AdminOrderDetailPage({
         <h2 className="text-lg font-semibold text-stone-900 mb-4">
           ステータス更新
         </h2>
-        <AdminOrderStatusForm
-          currentStatus={order.status}
-          orderId={order.id}
-        />
+        <AdminOrderStatusForm currentStatus={order.status} orderId={order.id} />
       </Card>
 
       <Card>
-        <h2 className="text-lg font-semibold text-stone-900 mb-4">
-          注文商品
-        </h2>
+        <h2 className="text-lg font-semibold text-stone-900 mb-4">注文商品</h2>
         <div>
           {order.items.map((item) => (
             <OrderItemRow key={item.id} item={item} />
@@ -56,9 +49,7 @@ export default async function AdminOrderDetailPage({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <Card>
-          <h2 className="text-lg font-semibold text-stone-900 mb-3">
-            配送先
-          </h2>
+          <h2 className="text-lg font-semibold text-stone-900 mb-3">配送先</h2>
           <div className="text-sm text-stone-600 space-y-1">
             <p>〒{addr.postal_code}</p>
             <p>
@@ -77,12 +68,10 @@ export default async function AdminOrderDetailPage({
           <div className="text-sm text-stone-600 space-y-1">
             <p>顧客ID: {order.user_id}</p>
             <p>
-              注文日:{" "}
-              {new Date(order.created_at).toLocaleDateString("ja-JP")}
+              注文日: {new Date(order.created_at).toLocaleDateString("ja-JP")}
             </p>
             <p>
-              更新日:{" "}
-              {new Date(order.updated_at).toLocaleDateString("ja-JP")}
+              更新日: {new Date(order.updated_at).toLocaleDateString("ja-JP")}
             </p>
           </div>
         </Card>

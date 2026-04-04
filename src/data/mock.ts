@@ -354,5 +354,8 @@ export function getAddressById(id: string): Address | undefined {
 }
 
 export function getCartTotal(items: CartItem[]): number {
-  return items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  return items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  );
 }

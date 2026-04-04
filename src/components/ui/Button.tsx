@@ -11,7 +11,8 @@ interface ButtonBaseProps {
 }
 
 interface ButtonAsButton
-  extends ButtonBaseProps,
+  extends
+    ButtonBaseProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonBaseProps> {
   href?: never;
 }
@@ -23,8 +24,7 @@ interface ButtonAsLink extends ButtonBaseProps {
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-teal-700 text-white hover:bg-teal-800 active:bg-teal-900",
+  primary: "bg-teal-700 text-white hover:bg-teal-800 active:bg-teal-900",
   secondary:
     "bg-stone-200 text-stone-800 hover:bg-stone-300 active:bg-stone-400",
   outline:

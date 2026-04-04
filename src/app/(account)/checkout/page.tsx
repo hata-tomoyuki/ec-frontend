@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { mockAddresses, mockCartItems, formatPrice, getCartTotal } from "@/data/mock";
+import {
+  mockAddresses,
+  mockCartItems,
+  formatPrice,
+  getCartTotal,
+} from "@/data/mock";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
@@ -9,7 +14,9 @@ type Step = "address" | "confirm" | "complete";
 
 export default function CheckoutPage() {
   const [step, setStep] = useState<Step>("address");
-  const [selectedAddress, setSelectedAddress] = useState(mockAddresses[0]?.id || "");
+  const [selectedAddress, setSelectedAddress] = useState(
+    mockAddresses[0]?.id || "",
+  );
   const items = mockCartItems;
   const total = getCartTotal(items);
 
@@ -24,7 +31,11 @@ export default function CheckoutPage() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
           </svg>
         </div>
         <h1 className="text-2xl font-bold text-stone-900 mb-2">

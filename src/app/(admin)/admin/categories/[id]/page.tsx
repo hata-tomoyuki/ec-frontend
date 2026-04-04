@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCategoryById, getProductsByCategory, formatPrice } from "@/data/mock";
+import {
+  getCategoryById,
+  getProductsByCategory,
+  formatPrice,
+} from "@/data/mock";
 import AdminCategoryForm from "@/components/admin/AdminCategoryForm";
 
 export default async function AdminCategoryEditPage({

@@ -10,9 +10,7 @@ interface AdminOrderTableProps {
 export default function AdminOrderTable({ orders }: AdminOrderTableProps) {
   if (orders.length === 0) {
     return (
-      <div className="text-center py-12 text-stone-500">
-        注文がありません
-      </div>
+      <div className="text-center py-12 text-stone-500">注文がありません</div>
     );
   }
 

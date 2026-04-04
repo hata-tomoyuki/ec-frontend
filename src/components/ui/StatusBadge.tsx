@@ -7,7 +7,10 @@ interface StatusBadgeProps {
 
 const statusConfig: Record<
   OrderStatus,
-  { label: string; variant: "default" | "success" | "warning" | "danger" | "info" }
+  {
+    label: string;
+    variant: "default" | "success" | "warning" | "danger" | "info";
+  }
 > = {
   pending: { label: "注文受付", variant: "warning" },
   confirmed: { label: "確認済み", variant: "info" },
