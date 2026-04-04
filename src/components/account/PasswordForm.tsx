@@ -1,46 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
+import {
+  updatePasswordAction,
+  type PasswordState,
+} from "@/lib/api/users";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 
 export default function PasswordForm() {
-  const [current, setCurrent] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [saved, setSaved] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaved(true);
-    setCurrent("");
-    setNewPassword("");
-    setConfirm("");
-    setTimeout(() => setSaved(false), 2000);
-  };
+  const [state, formAction, pending] = useActionState<PasswordState, FormData>(
+    updatePasswordAction,
+    {},
+  );
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form action={formAction} className="space-y-6">
       <Input
         label="現在のパスワード"
+        name="current_password"
         type="password"
-        value={current}
-        onChange={(e) => setCurrent(e.target.value)}
+        required
       />
       <Input
         label="新しいパスワード"
+        name="new_password"
         type="password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
+        required
       />
       <Input
         label="新しいパスワード（確認）"
+        name="confirm_password"
         type="password"
-        value={confirm}
-        onChange={(e) => setConfirm(e.target.value)}
+        required
       />
-      <Button type="submit">
-        {saved ? "変更しました" : "パスワードを変更"}
+      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.success && (
+        <p className="text-sm text-emerald-600">パスワードを変更しました</p>
+      )}
+      <Button type="submit" disabled={pending}>
+        {pending ? "変更中..." : "パスワードを変更"}
       </Button>
     </form>
   );

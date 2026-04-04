@@ -1,17 +1,20 @@
 import Link from "next/link";
-import { mockUser, mockOrders, mockAddresses } from "@/data/mock";
+import { getMe } from "@/lib/api/users";
+import { mockOrders, mockAddresses } from "@/data/mock";
 import Card from "@/components/ui/Card";
 
 export const metadata = {
   title: "マイページ",
 };
 
-export default function AccountDashboardPage() {
+export default async function AccountDashboardPage() {
+  const user = await getMe();
+
   return (
     <div>
       <h1 className="text-2xl font-bold text-stone-900 mb-2">マイページ</h1>
       <p className="text-stone-500 mb-8">
-        ようこそ、{mockUser.name}さん
+        ようこそ、{user.name}さん
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

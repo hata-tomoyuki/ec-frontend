@@ -1,37 +1,43 @@
 "use client";
 
-import { useState } from "react";
-import { mockUser } from "@/data/mock";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
+import {useActionState} from "react";
+import {updateProfileAction, ProfileState} from "@/lib/api/users";
+import type { User } from "@/types";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
 
-export default function ProfileForm() {
-  const [name, setName] = useState(mockUser.name);
-  const [email, setEmail] = useState(mockUser.email);
-  const [saved, setSaved] = useState(false);
+interface ProfileFormProps {
+  user: User;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
-
+export default function ProfileForm({ user }: ProfileFormProps) {
+  const [state, formAction, pending] = useActionState<ProfileState, FormData>(
+    updateProfileAction,
+    {},
+  )
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form action={formAction} className="space-y-6">
       <Input
         label="名前"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        name="name"
+        type="text"
+        required
+        defaultValue={user.name}
       />
       <Input
         label="メールアドレス"
+        name="email"
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        required
+        defaultValue={user.email}
       />
-      <div className="flex items-center gap-4">
-        <Button type="submit">{saved ? "保存しました" : "保存する"}</Button>
-      </div>
+      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.success && (
+        <p className="text-sm text-emerald-600">ユーザー情報を更新しました</p>
+      )}
+      <Button type="submit" disabled={pending}>
+        {pending ? "更新中..." : "ユーザー情報を更新"}
+      </Button>
     </form>
   );
 }
