@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import QuantitySelector from "@/components/ui/QuantitySelector";
 import { addCartItemAction } from "@/lib/api/cart-actions";
@@ -14,6 +15,7 @@ export default function AddToCartButton({
   productId,
   quantity: stock,
 }: AddToCartButtonProps) {
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [error, setError] = useState("");
@@ -24,6 +26,10 @@ export default function AddToCartButton({
       setAdded(true);
       setTimeout(() => setAdded(false), 2000);
     } catch (e) {
+      if (e instanceof Error && e.message.includes("Unauthorized")) {
+        router.push("/login");
+        return;
+      }
       setError(e instanceof Error ? e.message : "カートに追加できませんでした");
     }
   };

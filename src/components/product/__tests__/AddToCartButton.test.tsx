@@ -2,8 +2,14 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AddToCartButton from "../AddToCartButton";
 
+const mockPush = vi.fn();
+
 vi.mock("@/lib/api/cart-actions", () => ({
   addCartItemAction: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: mockPush }),
 }));
 
 vi.mock("next/link", () => ({
@@ -44,5 +50,18 @@ describe("AddToCartButton", () => {
     expect(
       screen.getByRole("button", { name: "カートに追加しました" }),
     ).toBeInTheDocument();
+  });
+
+  it("redirects to login when unauthorized", async () => {
+    const { addCartItemAction } = await import("@/lib/api/cart-actions");
+    vi.mocked(addCartItemAction).mockRejectedValueOnce(
+      new Error("Unauthorized"),
+    );
+
+    const user = userEvent.setup();
+    render(<AddToCartButton productId={1} quantity={5} />);
+
+    await user.click(screen.getByRole("button", { name: "カートに追加" }));
+    expect(mockPush).toHaveBeenCalledWith("/login");
   });
 });
