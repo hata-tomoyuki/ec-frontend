@@ -1,7 +1,7 @@
 "use client";
 
 import {useActionState} from "react";
-import {updateProfileAction, ProfileState} from "@/lib/api/users";
+import {updateProfileAction, ProfileState} from "@/lib/api/user-actions";
 import type { User } from "@/types";
 import Input from "../ui/Input";
 import Button from "../ui/Button";

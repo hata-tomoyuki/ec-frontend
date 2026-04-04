@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import PasswordForm from "../PasswordForm";
 
-vi.mock("@/lib/api/users", () => ({
+vi.mock("@/lib/api/user-actions", () => ({
   updatePasswordAction: vi.fn().mockResolvedValue({}),
 }));
 

@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import {
   updatePasswordAction,
   type PasswordState,
-} from "@/lib/api/users";
+} from "@/lib/api/user-actions";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 

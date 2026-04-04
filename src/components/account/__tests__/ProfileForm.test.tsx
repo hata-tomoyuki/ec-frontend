@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import ProfileForm from "../ProfileForm";
 import type { User } from "@/types";
 
-vi.mock("@/lib/api/users", () => ({
+vi.mock("@/lib/api/user-actions", () => ({
   updateProfileAction: vi.fn().mockResolvedValue({}),
 }));
 

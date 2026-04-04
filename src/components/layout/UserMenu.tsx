@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { logoutAction } from "@/lib/api/auth";
 
 interface UserMenuProps {
   userName?: string;
@@ -10,13 +10,11 @@ interface UserMenuProps {
 }
 
 export default function UserMenu({ userName = "", userEmail = "" }: UserMenuProps) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setOpen(false);
-    console.log("ログアウト");
-    router.push("/login");
+    await logoutAction();
   };
 
   return (

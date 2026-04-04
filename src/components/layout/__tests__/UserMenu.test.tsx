@@ -2,10 +2,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserMenu from "../UserMenu";
 
-const mockPush = vi.fn();
+const mockLogoutAction = vi.fn().mockResolvedValue(undefined);
 
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: mockPush }),
+vi.mock("@/lib/api/auth", () => ({
+  logoutAction: (...args: unknown[]) => mockLogoutAction(...args),
 }));
 
 vi.mock("next/link", () => ({
@@ -59,7 +59,7 @@ describe("UserMenu", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("navigates to login on logout", async () => {
+  it("calls logoutAction on logout", async () => {
     const user = userEvent.setup();
     render(<UserMenu userName="田中太郎" userEmail="tanaka@example.com" />);
 
@@ -67,6 +67,6 @@ describe("UserMenu", () => {
       screen.getByRole("button", { name: "アカウントメニュー" }),
     );
     await user.click(screen.getByRole("button", { name: "ログアウト" }));
-    expect(mockPush).toHaveBeenCalledWith("/login");
+    expect(mockLogoutAction).toHaveBeenCalled();
   });
 });
