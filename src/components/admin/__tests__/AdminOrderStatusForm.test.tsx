@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AdminOrderStatusForm from "../AdminOrderStatusForm";
 
+vi.mock("@/lib/api/admin-actions", () => ({
+  updateOrderStatusAction: vi.fn().mockResolvedValue(undefined),
+}));
+
 describe("AdminOrderStatusForm", () => {
   it("renders status select and update button", () => {
     render(<AdminOrderStatusForm currentStatus="pending" orderId={1} />);

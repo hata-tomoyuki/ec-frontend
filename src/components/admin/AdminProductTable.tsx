@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Product } from "@/types";
 import { formatPrice } from "@/data/mock";
+import { deleteProductAction } from "@/lib/api/admin-actions";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 
@@ -16,10 +17,13 @@ export default function AdminProductTable({
 }: AdminProductTableProps) {
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  function handleDelete(id: number) {
+  async function handleDelete(id: number) {
     setConfirmDeleteId(null);
-    // TODO: API呼び出し
-    console.log("Delete product:", id);
+    try {
+      await deleteProductAction(id);
+    } catch (e) {
+      console.error("Delete failed:", e);
+    }
   }
 
   if (products.length === 0) {

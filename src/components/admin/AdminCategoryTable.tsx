@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Category } from "@/types";
+import { deleteCategoryAction } from "@/lib/api/admin-actions";
 import Button from "@/components/ui/Button";
 
 interface AdminCategoryTableProps {
@@ -14,10 +15,13 @@ export default function AdminCategoryTable({
 }: AdminCategoryTableProps) {
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  function handleDelete(id: number) {
+  async function handleDelete(id: number) {
     setConfirmDeleteId(null);
-    // TODO: API呼び出し
-    console.log("Delete category:", id);
+    try {
+      await deleteCategoryAction(id);
+    } catch (e) {
+      console.error("Delete failed:", e);
+    }
   }
 
   if (categories.length === 0) {

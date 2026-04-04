@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Category } from "@/types";
+import {
+  createCategoryAction,
+  updateCategoryAction,
+} from "@/lib/api/admin-actions";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
@@ -19,12 +23,28 @@ export default function AdminCategoryForm({
 
   const [name, setName] = useState(category?.name ?? "");
   const [description, setDescription] = useState(category?.description ?? "");
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: API呼び出し
-    console.log("Submit category:", { name, description });
-    router.push("/admin/categories");
+    setError("");
+
+    const data = {
+      name,
+      description,
+      image_color: category?.image_color ?? "from-stone-400 to-stone-600",
+    };
+
+    try {
+      if (isEdit) {
+        await updateCategoryAction(category.id, data);
+      } else {
+        await createCategoryAction(data);
+      }
+      router.push("/admin/categories");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "保存に失敗しました");
+    }
   }
 
   return (
@@ -51,6 +71,7 @@ export default function AdminCategoryForm({
             className="block w-full rounded-lg border border-stone-300 px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700"
           />
         </div>
+        {error && <p className="text-sm text-red-600">{error}</p>}
         <div className="flex items-center gap-3 pt-2">
           <Button type="submit">{isEdit ? "更新する" : "追加する"}</Button>
           <Button

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { OrderStatus } from "@/types";
 import { orderStatusOptions } from "@/data/mock";
+import { updateOrderStatusAction } from "@/lib/api/admin-actions";
 import Button from "@/components/ui/Button";
 
 interface AdminOrderStatusFormProps {
@@ -15,11 +16,17 @@ export default function AdminOrderStatusForm({
   orderId,
 }: AdminOrderStatusFormProps) {
   const [status, setStatus] = useState<OrderStatus>(currentStatus);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: API呼び出し
-    console.log("Update order status:", { orderId, status });
+    setError("");
+
+    try {
+      await updateOrderStatusAction(orderId, status);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "更新に失敗しました");
+    }
   }
 
   return (
@@ -44,6 +51,7 @@ export default function AdminOrderStatusForm({
           ))}
         </select>
       </div>
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" size="md" disabled={status === currentStatus}>
         更新
       </Button>
