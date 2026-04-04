@@ -1,5 +1,6 @@
 import {
   getProducts,
+  getProductsPaginated,
   getProduct,
   createProduct,
   updateProduct,
@@ -33,19 +34,61 @@ const product = {
   category_name: "メンズファッション",
 };
 
+const paginatedResponse = {
+  data: [product],
+  total: 1,
+  page: 1,
+  limit: 100,
+};
+
 // --- Tests ---
 
 beforeEach(() => {
   vi.clearAllMocks();
 });
 
+describe("getProductsPaginated", () => {
+  it("calls /products with no query params by default", async () => {
+    mockApi.get.mockResolvedValue(paginatedResponse);
+
+    const result = await getProductsPaginated();
+
+    expect(mockApi.get).toHaveBeenCalledWith("/products");
+    expect(result).toEqual(paginatedResponse);
+  });
+
+  it("builds query string from params", async () => {
+    mockApi.get.mockResolvedValue(paginatedResponse);
+
+    await getProductsPaginated({ page: 2, limit: 10, sort: "price_asc", search: "シャツ" });
+
+    expect(mockApi.get).toHaveBeenCalledWith(
+      "/products?page=2&limit=10&sort=price_asc&search=%E3%82%B7%E3%83%A3%E3%83%84",
+    );
+  });
+
+  it("omits falsy params from query string", async () => {
+    mockApi.get.mockResolvedValue(paginatedResponse);
+
+    await getProductsPaginated({ page: 1, limit: 20 });
+
+    expect(mockApi.get).toHaveBeenCalledWith("/products?page=1&limit=20");
+  });
+});
+
 describe("getProducts", () => {
-  it("calls api.get with /products and returns the list", async () => {
-    mockApi.get.mockResolvedValue([product]);
+  it("returns data array from paginated response, filtering out-of-stock", async () => {
+    const outOfStock = { ...product, id: 2, quantity: 0 };
+    mockApi.get.mockResolvedValue({
+      data: [product, outOfStock],
+      total: 2,
+      page: 1,
+      limit: 100,
+    });
 
     const result = await getProducts();
 
-    expect(mockApi.get).toHaveBeenCalledWith("/products");
+    expect(mockApi.get).toHaveBeenCalledWith("/products?limit=100");
     expect(result).toEqual([product]);
   });
 });

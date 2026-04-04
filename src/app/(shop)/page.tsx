@@ -1,28 +1,17 @@
 import Link from "next/link";
-import { getProducts } from "@/lib/api/products";
+import { getProductsPaginated } from "@/lib/api/products";
 import { getCategories } from "@/lib/api/categories";
 import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 
 export default async function HomePage() {
-  const [allCategories, products] = await Promise.all([
+  const [allCategories, result] = await Promise.all([
     getCategories(),
-    getProducts(),
+    getProductsPaginated({ limit: 4 }),
   ]);
 
-  const categoryProductCounts = new Map<number, number>();
-  for (const p of products) {
-    const count = categoryProductCounts.get(p.category_id) ?? 0;
-    categoryProductCounts.set(p.category_id, count + 1);
-  }
-  const categories = allCategories
-    .filter((c) => (categoryProductCounts.get(c.id) ?? 0) > 0)
-    .map((c) => ({
-      ...c,
-      product_count: categoryProductCounts.get(c.id) ?? 0,
-    }));
-
-  const featuredProducts = products.slice(0, 4);
+  const categories = allCategories.filter((c) => c.product_count > 0);
+  const featuredProducts = result.data;
 
   return (
     <div>

@@ -1,9 +1,24 @@
-import type { Product } from "@/types";
+import type { Product, PaginatedProducts } from "@/types";
 import { api } from "./client";
 
+export async function getProductsPaginated(params?: {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  search?: string;
+}): Promise<PaginatedProducts> {
+  const query = new URLSearchParams();
+  if (params?.page) query.set("page", String(params.page));
+  if (params?.limit) query.set("limit", String(params.limit));
+  if (params?.sort) query.set("sort", params.sort);
+  if (params?.search) query.set("search", params.search);
+  const qs = query.toString();
+  return api.get<PaginatedProducts>(`/products${qs ? `?${qs}` : ""}`);
+}
+
 export async function getProducts(): Promise<Product[]> {
-  const products = await api.get<Product[]>("/products");
-  return products.filter((p) => p.quantity > 0);
+  const res = await getProductsPaginated({ limit: 100 });
+  return res.data.filter((p) => p.quantity > 0);
 }
 
 export function getProduct(id: number): Promise<Product> {

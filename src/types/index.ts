@@ -41,6 +41,13 @@ export interface Product {
   created_at: string;
 }
 
+export interface PaginatedProducts {
+  data: Product[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
 // CartItem — バックエンドはフラット構造（product をネストせず、product_name / product_price_in_cents を直接持つ）
 export interface CartItem {
   id: number;
