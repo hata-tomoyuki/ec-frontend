@@ -36,12 +36,8 @@ describe("QuantitySelector", () => {
     expect(screen.getByRole("button", { name: "数量を増やす" })).toBeDisabled();
   });
 
-  it("clamps to min when decrementing below min", async () => {
-    const user = userEvent.setup();
-    const onChange = vi.fn();
-    render(<QuantitySelector quantity={2} onChange={onChange} min={2} />);
-
-    // Button is disabled at min, but verify the min clamping logic
+  it("clamps to min when decrementing below min", () => {
+    render(<QuantitySelector quantity={2} onChange={vi.fn()} min={2} />);
     expect(screen.getByRole("button", { name: "数量を減らす" })).toBeDisabled();
   });
 });
