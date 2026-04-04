@@ -19,9 +19,7 @@ export default async function AccountDashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-stone-900 mb-2">マイページ</h1>
-      <p className="text-stone-500 mb-8">
-        ようこそ、{user.name}さん
-      </p>
+      <p className="text-stone-500 mb-8">ようこそ、{user.name}さん</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <Link href="/account/orders" className="group">

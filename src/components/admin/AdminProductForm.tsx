@@ -6,7 +6,10 @@ import type { Product, Category } from "@/types";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
-import { createProductAction, updateProductAction } from "@/lib/api/admin-actions";
+import {
+  createProductAction,
+  updateProductAction,
+} from "@/lib/api/admin-actions";
 
 interface AdminProductFormProps {
   product?: Product;
@@ -38,11 +41,11 @@ export default function AdminProductForm({
       description,
       price_in_cents: Number(price),
       image_color: "from-stone-400 to-stone-600",
-    }
+    };
 
     try {
-      if(isEdit) await updateProductAction(product.id, data);
-      else await createProductAction(data)
+      if (isEdit) await updateProductAction(product.id, data);
+      else await createProductAction(data);
       router.push("/admin/products");
     } catch (e) {
       setError(e instanceof Error ? e.message : "保存に失敗しました");

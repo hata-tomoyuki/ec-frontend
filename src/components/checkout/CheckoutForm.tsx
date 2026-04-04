@@ -16,9 +16,7 @@ type Step = "address" | "confirm" | "complete";
 
 export default function CheckoutForm({ addresses, items }: CheckoutFormProps) {
   const [step, setStep] = useState<Step>("address");
-  const [selectedAddress, setSelectedAddress] = useState(
-    addresses[0]?.id ?? 0,
-  );
+  const [selectedAddress, setSelectedAddress] = useState(addresses[0]?.id ?? 0);
   const [error, setError] = useState("");
   const total = items.reduce(
     (sum, item) => sum + item.product_price_in_cents * item.quantity,
@@ -60,9 +58,7 @@ export default function CheckoutForm({ addresses, items }: CheckoutFormProps) {
         <h1 className="text-2xl font-bold text-stone-900 mb-2">
           ご注文ありがとうございます
         </h1>
-        <p className="text-stone-500 mb-8">
-          注文が確定されました。
-        </p>
+        <p className="text-stone-500 mb-8">注文が確定されました。</p>
         <div className="flex justify-center gap-4">
           <Button href="/account/orders">注文履歴を見る</Button>
           <Button href="/" variant="outline">
@@ -151,15 +147,14 @@ export default function CheckoutForm({ addresses, items }: CheckoutFormProps) {
             <div className="divide-y divide-stone-100">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 py-3">
-                  <div
-                    className="w-16 h-16 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400 shrink-0"
-                  />
+                  <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-stone-800 line-clamp-1">
                       {item.product_name}
                     </p>
                     <p className="text-sm text-stone-500">
-                      {formatPrice(item.product_price_in_cents)} × {item.quantity}
+                      {formatPrice(item.product_price_in_cents)} ×{" "}
+                      {item.quantity}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-stone-800 shrink-0">

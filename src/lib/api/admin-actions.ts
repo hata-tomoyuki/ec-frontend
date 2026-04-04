@@ -2,11 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createProduct, updateProduct, deleteProduct } from "./products";
-import {
-  createCategory,
-  updateCategory,
-  deleteCategory,
-} from "./categories";
+import { createCategory, updateCategory, deleteCategory } from "./categories";
 import { updateOrderStatus } from "./orders";
 import type { OrderStatus } from "@/types";
 
@@ -64,10 +60,7 @@ export async function deleteCategoryAction(id: number) {
   revalidatePath("/admin/categories");
 }
 
-export async function updateOrderStatusAction(
-  id: number,
-  status: OrderStatus,
-) {
+export async function updateOrderStatusAction(id: number, status: OrderStatus) {
   await updateOrderStatus(id, status);
   revalidatePath("/admin/orders");
 }

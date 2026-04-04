@@ -5,7 +5,10 @@ import Link from "next/link";
 import type { CartItem } from "@/types";
 import PriceDisplay from "@/components/ui/PriceDisplay";
 import QuantitySelector from "@/components/ui/QuantitySelector";
-import { updateCartItemAction, removeCartItemAction } from "@/lib/api/cart-actions";
+import {
+  updateCartItemAction,
+  removeCartItemAction,
+} from "@/lib/api/cart-actions";
 
 interface CartItemRowProps {
   item: CartItem;
@@ -27,9 +30,7 @@ export default function CartItemRow({ item }: CartItemRowProps) {
     <div className="flex gap-4 py-4 border-b border-stone-100 last:border-b-0">
       {/* Image */}
       <Link href={`/products/${item.product_id}`} className="shrink-0">
-        <div
-          className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400"
-        />
+        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400" />
       </Link>
 
       {/* Info */}
@@ -61,7 +62,10 @@ export default function CartItemRow({ item }: CartItemRowProps) {
 
       {/* Subtotal */}
       <div className="shrink-0 text-right">
-        <PriceDisplay price={item.product_price_in_cents * quantity} size="sm" />
+        <PriceDisplay
+          price={item.product_price_in_cents * quantity}
+          size="sm"
+        />
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export default function AddToCartButton({
     try {
       await addCartItemAction(productId, quantity);
       setAdded(true);
-      setTimeout(()=> setAdded(false), 2000);
+      setTimeout(() => setAdded(false), 2000);
     } catch (e) {
       setError(e instanceof Error ? e.message : "カートに追加できませんでした");
     }

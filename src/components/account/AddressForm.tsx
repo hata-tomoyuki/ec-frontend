@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import type { Address } from "@/types";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { createAddressAction, updateAddressAction} from "@/lib/api/address-actions";
+import {
+  createAddressAction,
+  updateAddressAction,
+} from "@/lib/api/address-actions";
 
 interface AddressFormProps {
   address?: Address;
@@ -30,14 +33,14 @@ export default function AddressForm({ address }: AddressFormProps) {
       city,
       street,
       country,
-    }
+    };
 
     try {
       if (address) await updateAddressAction(address.id, data);
       else await createAddressAction(data);
       router.push("/account/addresses");
-    } catch(e) {
-      setError(e instanceof Error ? e.message : "保存に失敗しました")
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "保存に失敗しました");
     }
   }
 

@@ -27,7 +27,11 @@ export default async function ShopLayout({
 
   return (
     <>
-      <Header cartItemCount={cartItemCount} userName={userName} userEmail={userEmail} />
+      <Header
+        cartItemCount={cartItemCount}
+        userName={userName}
+        userEmail={userEmail}
+      />
       <main className="flex-1">{children}</main>
       <Footer />
     </>

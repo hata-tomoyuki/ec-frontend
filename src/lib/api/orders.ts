@@ -41,22 +41,22 @@ export function groupOrderRows(rows: OrderRow[]): Order[] {
         status: row.status,
         items: [
           {
-          product_id: row.product_id,
-          quantity: row.quantity,
-          price_in_cents: row.price_in_cents,
-        }
+            product_id: row.product_id,
+            quantity: row.quantity,
+            price_in_cents: row.price_in_cents,
+          },
         ],
         total: row.quantity * row.price_in_cents,
         created_at: row.created_at,
         updated_at: row.updated_at,
-      }
-      ordersMap.set(row.id, order)
+      };
+      ordersMap.set(row.id, order);
     } else {
       order.items.push({
         product_id: row.product_id,
         quantity: row.quantity,
         price_in_cents: row.price_in_cents,
-      })
+      });
       order.total += row.quantity * row.price_in_cents;
     }
   }

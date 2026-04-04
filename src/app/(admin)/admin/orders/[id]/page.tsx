@@ -59,9 +59,7 @@ export default async function AdminOrderDetailPage({
       </Card>
 
       <Card>
-        <h2 className="text-lg font-semibold text-stone-900 mb-3">
-          注文情報
-        </h2>
+        <h2 className="text-lg font-semibold text-stone-900 mb-3">注文情報</h2>
         <div className="text-sm text-stone-600 space-y-1">
           <p>顧客ID: {order.customer_id}</p>
           <p>

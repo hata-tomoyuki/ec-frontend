@@ -1,7 +1,7 @@
 "use client";
 
-import {useActionState} from "react";
-import {updateProfileAction, ProfileState} from "@/lib/api/user-actions";
+import { useActionState } from "react";
+import { updateProfileAction, ProfileState } from "@/lib/api/user-actions";
 import type { User } from "@/types";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
@@ -14,7 +14,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   const [state, formAction, pending] = useActionState<ProfileState, FormData>(
     updateProfileAction,
     {},
-  )
+  );
   return (
     <form action={formAction} className="space-y-6">
       <Input

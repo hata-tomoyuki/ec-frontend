@@ -50,9 +50,8 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
-
 describe("getCategories", () => {
-  it("calls api.get with /categories and return the list", async() => {
+  it("calls api.get with /categories and return the list", async () => {
     mockApi.get.mockResolvedValue([category]);
 
     const result = await getCategories();
@@ -63,15 +62,15 @@ describe("getCategories", () => {
 });
 
 describe("getCategory", () => {
-  it("calls api.get with /categories/:id and return the category", async() => {
+  it("calls api.get with /categories/:id and return the category", async () => {
     mockApi.get.mockResolvedValue(category);
 
     const result = await getCategory(1);
 
     expect(mockApi.get).toHaveBeenCalledWith("/categories/1");
     expect(result).toEqual(category);
-  })
-})
+  });
+});
 
 describe("getCategoryProducts", () => {
   it("calls api.get with /categories/:id/products and return the products", async () => {
@@ -81,8 +80,8 @@ describe("getCategoryProducts", () => {
 
     expect(mockApi.get).toHaveBeenCalledWith("/categories/1/products");
     expect(result).toEqual([product]);
-  })
-})
+  });
+});
 
 describe("createCategory", () => {
   it("calls api.post with /categories and the request body", async () => {
@@ -91,14 +90,14 @@ describe("createCategory", () => {
       description: "レディース向けの衣類・アクセサリー",
       image_color: "from-pink-400 to-pink-600",
     };
-    mockApi.post.mockResolvedValue({...category, ...body, id: 2});
+    mockApi.post.mockResolvedValue({ ...category, ...body, id: 2 });
 
     const result = await createCategory(body);
 
     expect(mockApi.post).toHaveBeenCalledWith("/categories", body);
     expect(result.name).toBe("レディースファッション");
   });
-})
+});
 
 describe("updateCategory", () => {
   it("calls api.put with /categories/:id and the request body", async () => {
@@ -106,23 +105,23 @@ describe("updateCategory", () => {
       name: "更新済みカテゴリー",
       description: "更新後の説明",
       image_color: "from-green-400 to-green-600",
-    }
-    mockApi.put.mockResolvedValue({...category, ...body})
+    };
+    mockApi.put.mockResolvedValue({ ...category, ...body });
 
-    const result = await updateCategory(1, body)
+    const result = await updateCategory(1, body);
 
     expect(mockApi.put).toHaveBeenCalledWith("/categories/1", body);
     expect(result.name).toBe("更新済みカテゴリー");
-  })
-})
+  });
+});
 
 describe("deleteCategory", () => {
-  it("calls api.delete with /categories/:id", async() => {
-    mockApi.delete.mockResolvedValue(undefined)
+  it("calls api.delete with /categories/:id", async () => {
+    mockApi.delete.mockResolvedValue(undefined);
 
-    const result = await deleteCategory(1)
+    const result = await deleteCategory(1);
 
-    expect(mockApi.delete).toHaveBeenCalledWith("/categories/1")
+    expect(mockApi.delete).toHaveBeenCalledWith("/categories/1");
     expect(result).toBeUndefined();
-  })
-})
+  });
+});

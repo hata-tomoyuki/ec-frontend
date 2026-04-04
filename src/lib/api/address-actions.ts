@@ -1,11 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-  createAddress,
-  updateAddress,
-  deleteAddress,
-} from "./addresses";
+import { createAddress, updateAddress, deleteAddress } from "./addresses";
 
 export async function createAddressAction(data: {
   street: string;

@@ -73,9 +73,7 @@ export default async function OrderDetailPage({
         </Card>
 
         {/* Cancel button */}
-        {order.status === "pending" && (
-          <CancelOrderButton orderId={order.id} />
-        )}
+        {order.status === "pending" && <CancelOrderButton orderId={order.id} />}
       </div>
     </div>
   );
