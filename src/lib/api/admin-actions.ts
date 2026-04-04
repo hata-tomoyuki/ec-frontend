@@ -11,6 +11,7 @@ export async function createProductAction(data: {
   description: string;
   price_in_cents: number;
   image_color: string;
+  quantity: number;
 }) {
   await createProduct(data);
   revalidatePath("/admin/products");
@@ -23,6 +24,7 @@ export async function updateProductAction(
     description: string;
     price_in_cents: number;
     image_color: string;
+    quantity: number;
   },
 ) {
   await updateProduct(id, data);

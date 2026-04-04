@@ -68,6 +68,7 @@ describe("createProduct", () => {
       description: "新商品の説明",
       price_in_cents: 3000,
       image_color: "from-red-400 to-red-600",
+      quantity: 10,
     };
     mockApi.post.mockResolvedValue({ ...product, ...body, id: 2 });
 
@@ -85,6 +86,7 @@ describe("updateProduct", () => {
       description: "更新後の説明",
       price_in_cents: 5980,
       image_color: "from-green-400 to-green-600",
+      quantity: 20,
     };
     mockApi.put.mockResolvedValue({ ...product, ...body });
 

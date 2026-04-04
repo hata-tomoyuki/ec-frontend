@@ -9,8 +9,9 @@ export function getCategory(id: number): Promise<Category> {
   return api.get<Category>(`/categories/${id}`);
 }
 
-export function getCategoryProducts(id: number): Promise<Product[]> {
-  return api.get<Product[]>(`/categories/${id}/products`);
+export async function getCategoryProducts(id: number): Promise<Product[]> {
+  const products = await api.get<Product[]>(`/categories/${id}/products`);
+  return products.filter((p) => p.quantity > 0);
 }
 
 export function createCategory(data: {

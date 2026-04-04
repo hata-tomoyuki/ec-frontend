@@ -5,10 +5,20 @@ import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 
 export default async function HomePage() {
-  const [categories, products] = await Promise.all([
+  const [allCategories, products] = await Promise.all([
     getCategories(),
     getProducts(),
   ]);
+
+  const categoryProductCounts = new Map<number, number>();
+  for (const p of products) {
+    const count = categoryProductCounts.get(p.category_id) ?? 0;
+    categoryProductCounts.set(p.category_id, count + 1);
+  }
+  const categories = allCategories
+    .filter((c) => (categoryProductCounts.get(c.id) ?? 0) > 0)
+    .map((c) => ({ ...c, product_count: categoryProductCounts.get(c.id) ?? 0 }));
+
   const featuredProducts = products.slice(0, 4);
 
   return (

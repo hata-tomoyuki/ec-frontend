@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import AdminProductForm from "../AdminProductForm";
 import type { Product, Category } from "@/types";
 
@@ -17,6 +18,14 @@ vi.mock("next/link", () => ({
       </a>
     );
   },
+}));
+
+const mockCreateProductAction = vi.fn().mockResolvedValue(undefined);
+const mockUpdateProductAction = vi.fn().mockResolvedValue(undefined);
+
+vi.mock("@/lib/api/admin-actions", () => ({
+  createProductAction: (...args: unknown[]) => mockCreateProductAction(...args),
+  updateProductAction: (...args: unknown[]) => mockUpdateProductAction(...args),
 }));
 
 const categories: Category[] = [
@@ -94,5 +103,36 @@ describe("AdminProductForm", () => {
     expect(
       screen.getByRole("button", { name: "キャンセル" }),
     ).toBeInTheDocument();
+  });
+
+  it("sends quantity when creating a product", async () => {
+    const user = userEvent.setup();
+    render(<AdminProductForm categories={categories} />);
+
+    await user.type(screen.getByLabelText("商品名"), "テスト");
+    await user.type(screen.getByLabelText("価格（円）"), "1000");
+    await user.type(screen.getByLabelText("在庫数"), "25");
+    await user.selectOptions(screen.getByLabelText("カテゴリ"), "1");
+    await user.click(screen.getByRole("button", { name: "追加する" }));
+
+    await waitFor(() => {
+      expect(mockCreateProductAction).toHaveBeenCalledWith(
+        expect.objectContaining({ quantity: 25 }),
+      );
+    });
+  });
+
+  it("sends quantity when updating a product", async () => {
+    const user = userEvent.setup();
+    render(<AdminProductForm categories={categories} product={product} />);
+
+    await user.click(screen.getByRole("button", { name: "更新する" }));
+
+    await waitFor(() => {
+      expect(mockUpdateProductAction).toHaveBeenCalledWith(
+        product.id,
+        expect.objectContaining({ quantity: 50 }),
+      );
+    });
   });
 });

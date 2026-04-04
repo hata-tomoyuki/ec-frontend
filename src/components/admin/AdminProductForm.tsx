@@ -41,6 +41,7 @@ export default function AdminProductForm({
       description,
       price_in_cents: Number(price),
       image_color: "from-stone-400 to-stone-600",
+      quantity: Number(stock),
     };
 
     try {

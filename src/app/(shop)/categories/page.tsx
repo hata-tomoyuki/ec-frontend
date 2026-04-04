@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCategories } from "@/lib/api/categories";
+import { getProducts } from "@/lib/api/products";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata = {
@@ -7,7 +8,19 @@ export const metadata = {
 };
 
 export default async function CategoriesPage() {
-  const categories = await getCategories();
+  const [allCategories, products] = await Promise.all([
+    getCategories(),
+    getProducts(),
+  ]);
+
+  const categoryProductCounts = new Map<number, number>();
+  for (const p of products) {
+    const count = categoryProductCounts.get(p.category_id) ?? 0;
+    categoryProductCounts.set(p.category_id, count + 1);
+  }
+  const categories = allCategories
+    .filter((c) => (categoryProductCounts.get(c.id) ?? 0) > 0)
+    .map((c) => ({ ...c, product_count: categoryProductCounts.get(c.id) ?? 0 }));
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumb
