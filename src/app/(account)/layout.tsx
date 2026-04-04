@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { getCart } from "@/lib/api/cart";
 
 const sidebarLinks = [
   { href: "/account", label: "マイページ" },
@@ -10,14 +11,25 @@ const sidebarLinks = [
   { href: "/account/password", label: "パスワード変更" },
 ];
 
-export default function AccountLayout({
+async function getCartCount(): Promise<number> {
+  try {
+    const items = await getCart();
+    return items.length;
+  } catch {
+    return 0;
+  }
+}
+
+export default async function AccountLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cartItemCount = await getCartCount();
+
   return (
     <>
-      <Header />
+      <Header cartItemCount={cartItemCount} />
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}

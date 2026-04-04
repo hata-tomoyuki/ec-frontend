@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { mockCartItems } from "@/data/mock";
 
-export default function CartIcon() {
-  const count = mockCartItems.length;
+interface CartIconProps {
+  count: number;
+}
 
+export default function CartIcon({ count }: CartIconProps) {
   return (
     <Link
       href="/cart"

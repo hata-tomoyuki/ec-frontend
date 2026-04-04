@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { CartItem } from "@/types";
 import PriceDisplay from "@/components/ui/PriceDisplay";
 import QuantitySelector from "@/components/ui/QuantitySelector";
+import { updateCartItemAction, removeCartItemAction } from "@/lib/api/cart-actions";
 
 interface CartItemRowProps {
   item: CartItem;
@@ -12,6 +13,15 @@ interface CartItemRowProps {
 
 export default function CartItemRow({ item }: CartItemRowProps) {
   const [quantity, setQuantity] = useState(item.quantity);
+
+  async function handleQuantityChange(newQuantity: number) {
+    setQuantity(newQuantity);
+    await updateCartItemAction(item.id, newQuantity);
+  }
+
+  async function handleRemove() {
+    await removeCartItemAction(item.id);
+  }
 
   return (
     <div className="flex gap-4 py-4 border-b border-stone-100 last:border-b-0">
@@ -36,11 +46,12 @@ export default function CartItemRow({ item }: CartItemRowProps) {
         <div className="mt-3 flex items-center gap-4">
           <QuantitySelector
             quantity={quantity}
-            onChange={setQuantity}
+            onChange={handleQuantityChange}
             max={10}
           />
           <button
             type="button"
+            onClick={handleRemove}
             className="text-sm text-stone-400 hover:text-red-500 transition-colors"
           >
             削除

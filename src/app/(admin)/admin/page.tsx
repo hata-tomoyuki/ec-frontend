@@ -1,16 +1,19 @@
 import Link from "next/link";
-import { mockOrders, formatPrice } from "@/data/mock";
+import { formatPrice } from "@/data/mock";
 import { getProducts } from "@/lib/api/products";
 import { getCategories } from "@/lib/api/categories";
+import { getAdminOrders, groupOrderRows } from "@/lib/api/orders";
 import AdminStatsCard from "@/components/admin/AdminStatsCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 
 export default async function AdminDashboardPage() {
-  const [products, categories] = await Promise.all([
+  const [products, categories, orderRows] = await Promise.all([
     getProducts(),
     getCategories(),
+    getAdminOrders(),
   ]);
-  const pendingOrders = mockOrders.filter((o) => o.status === "pending");
+  const orders = groupOrderRows(orderRows);
+  const pendingOrders = orders.filter((o) => o.status === "pending");
 
   return (
     <div className="space-y-8">
@@ -23,7 +26,7 @@ export default async function AdminDashboardPage() {
           subtitle={`${categories.length} カテゴリ`}
         />
         <AdminStatsCard title="カテゴリ数" value={categories.length} />
-        <AdminStatsCard title="注文数" value={mockOrders.length} />
+        <AdminStatsCard title="注文数" value={orders.length} />
         <AdminStatsCard
           title="未処理注文"
           value={pendingOrders.length}
@@ -60,7 +63,7 @@ export default async function AdminDashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {mockOrders.map((order) => (
+              {orders.map((order) => (
                 <tr
                   key={order.id}
                   className="border-b border-stone-100 last:border-b-0 hover:bg-stone-50"

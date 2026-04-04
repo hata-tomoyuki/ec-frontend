@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AddToCartButton from "../AddToCartButton";
 
+vi.mock("@/lib/api/cart-actions", () => ({
+  addCartItemAction: vi.fn().mockResolvedValue(undefined),
+}));
+
 vi.mock("next/link", () => ({
   default: (props: Record<string, unknown>) => {
     const { href, children, className, ...rest } = props;

@@ -1,5 +1,5 @@
 import type { CartItem } from "@/types";
-import { formatPrice, getCartTotal } from "@/data/mock";
+import { formatPrice } from "@/data/mock";
 import Button from "@/components/ui/Button";
 
 interface CartSummaryProps {
@@ -7,7 +7,10 @@ interface CartSummaryProps {
 }
 
 export default function CartSummary({ items }: CartSummaryProps) {
-  const subtotal = getCartTotal(items);
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.product_price_in_cents * item.quantity,
+    0,
+  );
   const shipping = 0;
   const total = subtotal + shipping;
 

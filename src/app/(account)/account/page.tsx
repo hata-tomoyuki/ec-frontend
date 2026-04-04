@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getMe } from "@/lib/api/users";
-import { mockOrders, mockAddresses } from "@/data/mock";
+import { getOrders, groupOrderRows } from "@/lib/api/orders";
+import { getAddresses } from "@/lib/api/addresses";
 import Card from "@/components/ui/Card";
 
 export const metadata = {
@@ -8,7 +9,12 @@ export const metadata = {
 };
 
 export default async function AccountDashboardPage() {
-  const user = await getMe();
+  const [user, orderRows, addresses] = await Promise.all([
+    getMe(),
+    getOrders(),
+    getAddresses(),
+  ]);
+  const orders = groupOrderRows(orderRows);
 
   return (
     <div>
@@ -38,7 +44,7 @@ export default async function AccountDashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-stone-900">
-                  {mockOrders.length}
+                  {orders.length}
                 </p>
                 <p className="text-sm text-stone-500">注文</p>
               </div>
@@ -71,7 +77,7 @@ export default async function AccountDashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-stone-900">
-                  {mockAddresses.length}
+                  {addresses.length}
                 </p>
                 <p className="text-sm text-stone-500">登録住所</p>
               </div>

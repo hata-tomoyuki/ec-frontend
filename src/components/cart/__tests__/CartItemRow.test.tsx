@@ -2,6 +2,11 @@ import { render, screen } from "@testing-library/react";
 import CartItemRow from "../CartItemRow";
 import type { CartItem } from "@/types";
 
+vi.mock("@/lib/api/cart-actions", () => ({
+  updateCartItemAction: vi.fn().mockResolvedValue(undefined),
+  removeCartItemAction: vi.fn().mockResolvedValue(undefined),
+}));
+
 vi.mock("next/link", () => ({
   default: (props: Record<string, unknown>) => {
     const { href, children, className, ...rest } = props;

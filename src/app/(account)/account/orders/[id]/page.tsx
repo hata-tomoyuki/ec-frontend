@@ -1,14 +1,12 @@
 import { notFound } from "next/navigation";
-import { mockOrders, getOrderById, formatPrice } from "@/data/mock";
+import { getOrder, groupOrderRows } from "@/lib/api/orders";
+import { ApiError } from "@/lib/api/client";
+import { formatPrice } from "@/data/mock";
 import Card from "@/components/ui/Card";
 import StatusBadge from "@/components/ui/StatusBadge";
-import Button from "@/components/ui/Button";
 import OrderStatusTimeline from "@/components/order/OrderStatusTimeline";
 import OrderItemRow from "@/components/order/OrderItemRow";
-
-export async function generateStaticParams() {
-  return mockOrders.map((o) => ({ id: String(o.id) }));
-}
+import CancelOrderButton from "@/components/order/CancelOrderButton";
 
 export default async function OrderDetailPage({
   params,
@@ -16,11 +14,22 @@ export default async function OrderDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const order = getOrderById(Number(id));
 
-  if (!order) {
+  let rows;
+  try {
+    rows = await getOrder(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) {
+      notFound();
+    }
+    throw e;
+  }
+
+  const orders = groupOrderRows(rows);
+  if (orders.length === 0) {
     notFound();
   }
+  const order = orders[0];
 
   const date = new Date(order.created_at).toLocaleDateString("ja-JP", {
     year: "numeric",
@@ -65,7 +74,7 @@ export default async function OrderDetailPage({
 
         {/* Cancel button */}
         {order.status === "pending" && (
-          <Button variant="danger">注文をキャンセル</Button>
+          <CancelOrderButton orderId={order.id} />
         )}
       </div>
     </div>

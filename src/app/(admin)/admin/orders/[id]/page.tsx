@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
-import { getOrderById, formatPrice } from "@/data/mock";
+import { getOrder, groupOrderRows } from "@/lib/api/orders";
+import { ApiError } from "@/lib/api/client";
+import { formatPrice } from "@/data/mock";
 import Card from "@/components/ui/Card";
 import StatusBadge from "@/components/ui/StatusBadge";
 import OrderItemRow from "@/components/order/OrderItemRow";
@@ -11,11 +13,22 @@ export default async function AdminOrderDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const order = getOrderById(Number(id));
 
-  if (!order) {
+  let rows;
+  try {
+    rows = await getOrder(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) {
+      notFound();
+    }
+    throw e;
+  }
+
+  const orders = groupOrderRows(rows);
+  if (orders.length === 0) {
     notFound();
   }
+  const order = orders[0];
 
   return (
     <div className="space-y-6">

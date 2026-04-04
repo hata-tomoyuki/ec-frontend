@@ -1,4 +1,4 @@
-import { mockCartItems } from "@/data/mock";
+import { getCart } from "@/lib/api/cart";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CartItemRow from "@/components/cart/CartItemRow";
 import CartSummary from "@/components/cart/CartSummary";
@@ -8,8 +8,8 @@ export const metadata = {
   title: "カート",
 };
 
-export default function CartPage() {
-  const items = mockCartItems;
+export default async function CartPage() {
+  const items = await getCart();
 
   if (items.length === 0) {
     return (

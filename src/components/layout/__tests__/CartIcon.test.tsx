@@ -21,7 +21,7 @@ vi.mock("next/link", () => ({
 
 describe("CartIcon", () => {
   it("links to cart page", () => {
-    render(<CartIcon />);
+    render(<CartIcon count={0} />);
     expect(screen.getByRole("link", { name: "カート" })).toHaveAttribute(
       "href",
       "/cart",
@@ -29,8 +29,12 @@ describe("CartIcon", () => {
   });
 
   it("shows item count badge", () => {
-    render(<CartIcon />);
-    // mockCartItems has 3 items
+    render(<CartIcon count={3} />);
     expect(screen.getByText("3")).toBeInTheDocument();
+  });
+
+  it("hides badge when count is zero", () => {
+    render(<CartIcon count={0} />);
+    expect(screen.queryByText("0")).not.toBeInTheDocument();
   });
 });
