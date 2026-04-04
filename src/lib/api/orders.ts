@@ -25,6 +25,11 @@ export function getAdminOrders(): Promise<OrderRow[]> {
   return api.get<OrderRow[]>("/admin/orders");
 }
 
+export async function getAdminOrder(id: number): Promise<OrderRow[]> {
+  const data = await api.get<OrderRow[] | null>(`/admin/orders/${id}`);
+  return data ?? [];
+}
+
 export function updateOrderStatus(
   id: number,
   status: OrderStatus,

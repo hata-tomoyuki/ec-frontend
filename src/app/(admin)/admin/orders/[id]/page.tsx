@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getOrder, groupOrderRows } from "@/lib/api/orders";
+import { getAdminOrder, groupOrderRows } from "@/lib/api/orders";
 import { ApiError } from "@/lib/api/client";
 import { formatPrice } from "@/data/mock";
 import Card from "@/components/ui/Card";
@@ -16,7 +16,7 @@ export default async function AdminOrderDetailPage({
 
   let rows;
   try {
-    rows = await getOrder(Number(id));
+    rows = await getAdminOrder(Number(id));
   } catch (e) {
     if (e instanceof ApiError && e.status === 404) {
       notFound();
