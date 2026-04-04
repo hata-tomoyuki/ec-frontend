@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getMe } from "@/lib/api/users";
 
 const sidebarLinks = [
   { href: "/admin", label: "ダッシュボード" },
@@ -7,11 +9,15 @@ const sidebarLinks = [
   { href: "/admin/orders", label: "注文管理" },
 ];
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getMe();
+  if (user.role !== "admin") {
+    redirect("/");
+  }
   return (
     <>
       <header className="sticky top-0 z-30 bg-stone-900 text-white">
