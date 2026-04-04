@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Address } from "@/types";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import { createAddressAction, updateAddressAction} from "@/lib/api/address-actions";
 
 interface AddressFormProps {
   address?: Address;
@@ -17,11 +18,28 @@ export default function AddressForm({ address }: AddressFormProps) {
   const [city, setCity] = useState(address?.city || "");
   const [street, setStreet] = useState(address?.street || "");
   const [country, setCountry] = useState(address?.country || "Japan");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    router.push("/account/addresses");
-  };
+    setError("");
+
+    const data = {
+      zip_code: zipCode,
+      state,
+      city,
+      street,
+      country,
+    }
+
+    try {
+      if (address) await updateAddressAction(address.id, data);
+      else await createAddressAction(data);
+      router.push("/account/addresses");
+    } catch(e) {
+      setError(e instanceof Error ? e.message : "保存に失敗しました")
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -54,6 +72,7 @@ export default function AddressForm({ address }: AddressFormProps) {
         value={country}
         onChange={(e) => setCountry(e.target.value)}
       />
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <div className="flex gap-4">
         <Button type="submit">{address ? "更新する" : "追加する"}</Button>
         <Button

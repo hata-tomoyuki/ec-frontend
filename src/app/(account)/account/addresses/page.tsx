@@ -1,4 +1,4 @@
-import { mockAddresses } from "@/data/mock";
+import { getAddresses } from "@/lib/api/addresses";
 import Button from "@/components/ui/Button";
 import AddressCard from "@/components/account/AddressCard";
 import EmptyState from "@/components/ui/EmptyState";
@@ -7,7 +7,9 @@ export const metadata = {
   title: "住所管理",
 };
 
-export default function AddressesPage() {
+export default async function AddressesPage() {
+  const addresses = await getAddresses();
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -17,9 +19,9 @@ export default function AddressesPage() {
         </Button>
       </div>
 
-      {mockAddresses.length > 0 ? (
+      {addresses.length > 0 ? (
         <div className="space-y-4">
-          {mockAddresses.map((address) => (
+          {addresses.map((address) => (
             <AddressCard key={address.id} address={address} />
           ))}
         </div>

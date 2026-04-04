@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
-import { mockAddresses, getAddressById } from "@/data/mock";
+import { getAddress } from "@/lib/api/addresses";
+import { ApiError } from "@/lib/api/client";
 import Card from "@/components/ui/Card";
 import AddressForm from "@/components/account/AddressForm";
-
-export async function generateStaticParams() {
-  return mockAddresses.map((a) => ({ id: String(a.id) }));
-}
 
 export default async function EditAddressPage({
   params,
@@ -13,10 +10,15 @@ export default async function EditAddressPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const address = getAddressById(Number(id));
 
-  if (!address) {
-    notFound();
+  let address;
+  try {
+    address = await getAddress(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) {
+      notFound();
+    }
+    throw e;
   }
 
   return (
