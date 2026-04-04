@@ -60,7 +60,12 @@ describe("getProductsPaginated", () => {
   it("builds query string from params", async () => {
     mockApi.get.mockResolvedValue(paginatedResponse);
 
-    await getProductsPaginated({ page: 2, limit: 10, sort: "price_asc", search: "シャツ" });
+    await getProductsPaginated({
+      page: 2,
+      limit: 10,
+      sort: "price_asc",
+      search: "シャツ",
+    });
 
     expect(mockApi.get).toHaveBeenCalledWith(
       "/products?page=2&limit=10&sort=price_asc&search=%E3%82%B7%E3%83%A3%E3%83%84",

@@ -30,19 +30,29 @@ export default function Pagination({ total, page, limit }: PaginationProps) {
 
   return (
     <div className="flex items-center justify-center space-x-4">
-      {page-1 < 1 ?(
+      {page - 1 < 1 ? (
         <span className="text-center text-stone-300">前へ</span>
-      ): (
-        <Link href={buildHref(page-1)} className="text-center">前へ</Link>
+      ) : (
+        <Link href={buildHref(page - 1)} className="text-center">
+          前へ
+        </Link>
       )}
-      {[...Array(totalPages)].map((_, i) =>
-        <Link href={buildHref(i+1)} key={i} className={`rounded-full aspect-square w-6 text-center border border-teal-700  ${i+1 === page ? "bg-teal-700 text-white" : "bg-white" }`}>{i+1}</Link>
-      )}
-      {page+1>totalPages ? (
+      {[...Array(totalPages)].map((_, i) => (
+        <Link
+          href={buildHref(i + 1)}
+          key={i}
+          className={`rounded-full aspect-square w-6 text-center border border-teal-700  ${i + 1 === page ? "bg-teal-700 text-white" : "bg-white"}`}
+        >
+          {i + 1}
+        </Link>
+      ))}
+      {page + 1 > totalPages ? (
         <span className="text-center text-stone-300">次へ</span>
       ) : (
-        <Link href={buildHref(page+1)} className="text-center">次へ</Link>
+        <Link href={buildHref(page + 1)} className="text-center">
+          次へ
+        </Link>
       )}
     </div>
-  )
+  );
 }
