@@ -32,7 +32,7 @@ beforeEach(() => {
 
 describe("UserMenu", () => {
   it("renders account menu button", () => {
-    render(<UserMenu />);
+    render(<UserMenu userName="田中太郎" userEmail="tanaka@example.com" />);
     expect(
       screen.getByRole("button", { name: "アカウントメニュー" }),
     ).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe("UserMenu", () => {
 
   it("shows dropdown on click", async () => {
     const user = userEvent.setup();
-    render(<UserMenu />);
+    render(<UserMenu userName="田中太郎" userEmail="tanaka@example.com" />);
 
     await user.click(
       screen.getByRole("button", { name: "アカウントメニュー" }),
@@ -53,7 +53,7 @@ describe("UserMenu", () => {
   });
 
   it("does not show dropdown initially", () => {
-    render(<UserMenu />);
+    render(<UserMenu userName="田中太郎" userEmail="tanaka@example.com" />);
     expect(
       screen.queryByRole("link", { name: "マイページ" }),
     ).not.toBeInTheDocument();
@@ -61,7 +61,7 @@ describe("UserMenu", () => {
 
   it("navigates to login on logout", async () => {
     const user = userEvent.setup();
-    render(<UserMenu />);
+    render(<UserMenu userName="田中太郎" userEmail="tanaka@example.com" />);
 
     await user.click(
       screen.getByRole("button", { name: "アカウントメニュー" }),

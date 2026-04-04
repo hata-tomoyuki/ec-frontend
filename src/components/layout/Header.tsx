@@ -12,9 +12,11 @@ const navLinks = [
 
 interface HeaderProps {
   cartItemCount?: number;
+  userName?: string;
+  userEmail?: string;
 }
 
-export default function Header({ cartItemCount = 0 }: HeaderProps) {
+export default function Header({ cartItemCount = 0, userName = "", userEmail = "" }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +39,7 @@ export default function Header({ cartItemCount = 0 }: HeaderProps) {
           </div>
           <div className="flex items-center gap-2">
             <CartIcon count={cartItemCount} />
-            <UserMenu />
+            <UserMenu userName={userName} userEmail={userEmail} />
             <MobileMenu />
           </div>
         </div>

@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { mockUser } from "@/data/mock";
 
-export default function UserMenu() {
+interface UserMenuProps {
+  userName?: string;
+  userEmail?: string;
+}
+
+export default function UserMenu({ userName = "", userEmail = "" }: UserMenuProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -23,7 +27,7 @@ export default function UserMenu() {
         aria-label="アカウントメニュー"
       >
         <div className="w-8 h-8 rounded-full bg-teal-700 text-white flex items-center justify-center text-sm font-medium">
-          {mockUser.name[0]}
+          {userName[0] || "?"}
         </div>
       </button>
 
@@ -33,9 +37,9 @@ export default function UserMenu() {
           <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl border border-stone-200 shadow-lg z-50 py-2">
             <div className="px-4 py-2 border-b border-stone-100">
               <p className="text-sm font-medium text-stone-800">
-                {mockUser.name}
+                {userName}
               </p>
-              <p className="text-xs text-stone-500">{mockUser.email}</p>
+              <p className="text-xs text-stone-500">{userEmail}</p>
             </div>
             <nav className="py-1">
               {[

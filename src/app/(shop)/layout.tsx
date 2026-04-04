@@ -1,14 +1,21 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getCart } from "@/lib/api/cart";
+import { getMe } from "@/lib/api/users";
 
-async function getCartCount(): Promise<number> {
+async function getHeaderData() {
+  let cartItemCount = 0;
+  let userName = "";
+  let userEmail = "";
   try {
-    const items = await getCart();
-    return items.length;
+    const [items, user] = await Promise.all([getCart(), getMe()]);
+    cartItemCount = items.length;
+    userName = user.name;
+    userEmail = user.email;
   } catch {
-    return 0;
+    // 未ログイン時はデフォルト値
   }
+  return { cartItemCount, userName, userEmail };
 }
 
 export default async function ShopLayout({
@@ -16,11 +23,11 @@ export default async function ShopLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cartItemCount = await getCartCount();
+  const { cartItemCount, userName, userEmail } = await getHeaderData();
 
   return (
     <>
-      <Header cartItemCount={cartItemCount} />
+      <Header cartItemCount={cartItemCount} userName={userName} userEmail={userEmail} />
       <main className="flex-1">{children}</main>
       <Footer />
     </>
