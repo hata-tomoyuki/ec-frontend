@@ -16,18 +16,22 @@ vi.mock("next/link", () => ({
 
 const categories: Category[] = [
   {
-    id: "c1",
+    id: 1,
     name: "ファッション",
     description: "衣類",
     image_color: "",
     product_count: 5,
+    created_at: "",
+    updated_at: "",
   },
   {
-    id: "c2",
+    id: 2,
     name: "家電",
     description: "電子機器",
     image_color: "",
     product_count: 3,
+    created_at: "",
+    updated_at: "",
   },
 ];
 

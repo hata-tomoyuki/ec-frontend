@@ -9,7 +9,7 @@ import ProductGrid from "@/components/product/ProductGrid";
 import EmptyState from "@/components/ui/EmptyState";
 
 export async function generateStaticParams() {
-  return mockCategories.map((c) => ({ id: c.id }));
+  return mockCategories.map((c) => ({ id: String(c.id) }));
 }
 
 export default async function CategoryDetailPage({
@@ -18,13 +18,13 @@ export default async function CategoryDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const category = getCategoryById(id);
+  const category = getCategoryById(Number(id));
 
   if (!category) {
     notFound();
   }
 
-  const products = getProductsByCategory(id);
+  const products = getProductsByCategory(Number(id));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

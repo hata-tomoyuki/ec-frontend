@@ -8,21 +8,23 @@ export interface User {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   description: string;
   image_color: string;
   product_count: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   description: string;
-  price: number;
-  category_id: string;
+  price_in_cents: number;
+  category_id: number;
   category_name: string;
-  stock: number;
+  quantity: number;
   image_color: string;
   created_at: string;
 }

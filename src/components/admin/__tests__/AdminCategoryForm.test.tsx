@@ -20,11 +20,13 @@ vi.mock("next/link", () => ({
 }));
 
 const category: Category = {
-  id: "c1",
+  id: 1,
   name: "ファッション",
   description: "衣類・アクセサリー",
   image_color: "",
   product_count: 5,
+  created_at: "",
+  updated_at: "",
 };
 
 describe("AdminCategoryForm", () => {

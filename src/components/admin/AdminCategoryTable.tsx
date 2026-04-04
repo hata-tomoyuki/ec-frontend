@@ -12,9 +12,9 @@ interface AdminCategoryTableProps {
 export default function AdminCategoryTable({
   categories,
 }: AdminCategoryTableProps) {
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  function handleDelete(id: string) {
+  function handleDelete(id: number) {
     setConfirmDeleteId(null);
     // TODO: API呼び出し
     console.log("Delete category:", id);

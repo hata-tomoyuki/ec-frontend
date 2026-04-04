@@ -18,13 +18,13 @@ const items: CartItem[] = [
     id: "c1",
     product_id: "p1",
     product: {
-      id: "p1",
+      id: 1,
       name: "A",
       description: "",
-      price: 100000,
-      category_id: "c1",
+      price_in_cents: 1000,
+      category_id: 1,
       category_name: "",
-      stock: 10,
+      quantity: 10,
       image_color: "",
       created_at: "",
     },
@@ -40,7 +40,7 @@ describe("CartSummary", () => {
 
   it("displays subtotal and total", () => {
     render(<CartSummary items={items} />);
-    // 100000 sen * 2 = 200000 sen = ¥2,000 (shown for subtotal and total)
+    // 1000 yen * 2 = ¥2,000 (shown for subtotal and total)
     const prices = screen.getAllByText("¥2,000");
     expect(prices).toHaveLength(2); // subtotal + total (shipping is free)
   });

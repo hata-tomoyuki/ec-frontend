@@ -5,13 +5,13 @@ import Button from "@/components/ui/Button";
 import QuantitySelector from "@/components/ui/QuantitySelector";
 
 interface AddToCartButtonProps {
-  productId: string;
-  stock: number;
+  productId: number;
+  quantity: number;
 }
 
 export default function AddToCartButton({
   productId: _productId,
-  stock,
+  quantity: stock,
 }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);

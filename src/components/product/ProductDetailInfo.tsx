@@ -16,14 +16,14 @@ export default function ProductDetailInfo({ product }: ProductDetailInfoProps) {
         </h1>
       </div>
 
-      <PriceDisplay price={product.price} size="xl" />
+      <PriceDisplay price={product.price_in_cents} size="xl" />
 
       <div className="prose prose-stone prose-sm max-w-none">
         <p className="text-stone-600 leading-relaxed">{product.description}</p>
       </div>
 
       <div className="flex items-center gap-2 text-sm">
-        {product.stock > 0 ? (
+        {product.quantity > 0 ? (
           <>
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span className="text-emerald-700">在庫あり</span>

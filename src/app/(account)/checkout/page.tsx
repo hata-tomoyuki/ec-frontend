@@ -146,11 +146,11 @@ export default function CheckoutPage() {
                       {item.product.name}
                     </p>
                     <p className="text-sm text-stone-500">
-                      {formatPrice(item.product.price)} × {item.quantity}
+                      {formatPrice(item.product.price_in_cents)} × {item.quantity}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-stone-800 shrink-0">
-                    {formatPrice(item.product.price * item.quantity)}
+                    {formatPrice(item.product.price_in_cents * item.quantity)}
                   </p>
                 </div>
               ))}

@@ -10,7 +10,7 @@ import AddToCartButton from "@/components/product/AddToCartButton";
 import ProductGrid from "@/components/product/ProductGrid";
 
 export async function generateStaticParams() {
-  return mockProducts.map((p) => ({ id: p.id }));
+  return mockProducts.map((p) => ({ id: String(p.id) }));
 }
 
 export default async function ProductDetailPage({
@@ -19,7 +19,7 @@ export default async function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = getProductById(id);
+  const product = getProductById(Number(id));
 
   if (!product) {
     notFound();
@@ -50,7 +50,7 @@ export default async function ProductDetailPage({
         {/* Product info */}
         <div className="space-y-8">
           <ProductDetailInfo product={product} />
-          <AddToCartButton productId={product.id} stock={product.stock} />
+          <AddToCartButton productId={product.id} quantity={product.quantity} />
         </div>
       </div>
 

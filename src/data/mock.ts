@@ -19,184 +19,194 @@ export const mockUser: User = {
 
 export const mockCategories: Category[] = [
   {
-    id: "cat-1",
+    id: 1,
     name: "メンズファッション",
     description: "メンズ向けの衣類・アクセサリー",
     image_color: "from-blue-600 to-blue-800",
     product_count: 3,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
   },
   {
-    id: "cat-2",
+    id: 2,
     name: "レディースファッション",
     description: "レディース向けの衣類・アクセサリー",
     image_color: "from-pink-500 to-rose-600",
     product_count: 2,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
   },
   {
-    id: "cat-3",
+    id: 3,
     name: "家電・ガジェット",
     description: "最新の家電製品やガジェット",
     image_color: "from-slate-600 to-slate-800",
     product_count: 3,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
   },
   {
-    id: "cat-4",
+    id: 4,
     name: "食品・グルメ",
     description: "厳選された食品・飲料",
     image_color: "from-amber-500 to-orange-600",
     product_count: 2,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
   },
   {
-    id: "cat-5",
+    id: 5,
     name: "本・書籍",
     description: "話題の書籍・専門書",
     image_color: "from-emerald-600 to-teal-700",
     product_count: 2,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
   },
 ];
 
 export const mockProducts: Product[] = [
   {
-    id: "prod-1",
+    id: 1,
     name: "プレミアムコットンTシャツ",
     description:
       "上質なオーガニックコットン100%使用。肌触りが良く、着心地抜群のTシャツです。日常使いからカジュアルなお出かけまで幅広く活躍します。",
-    price: 498000,
-    category_id: "cat-1",
+    price_in_cents: 4980,
+    category_id: 1,
     category_name: "メンズファッション",
-    stock: 50,
+    quantity: 50,
     image_color: "from-blue-400 to-blue-600",
     created_at: "2024-03-01T00:00:00Z",
   },
   {
-    id: "prod-2",
+    id: 2,
     name: "スリムフィットデニムパンツ",
     description:
       "ストレッチ素材を使用したスリムフィットデニム。動きやすさとスタイリッシュさを両立しています。",
-    price: 898000,
-    category_id: "cat-1",
+    price_in_cents: 8980,
+    category_id: 1,
     category_name: "メンズファッション",
-    stock: 30,
+    quantity: 30,
     image_color: "from-indigo-500 to-blue-700",
     created_at: "2024-03-05T00:00:00Z",
   },
   {
-    id: "prod-3",
+    id: 3,
     name: "レザーウォレット",
     description:
       "イタリアンレザーを使用した上質な二つ折り財布。カード収納も充実しています。",
-    price: 1280000,
-    category_id: "cat-1",
+    price_in_cents: 12800,
+    category_id: 1,
     category_name: "メンズファッション",
-    stock: 20,
+    quantity: 20,
     image_color: "from-blue-700 to-indigo-900",
     created_at: "2024-03-10T00:00:00Z",
   },
   {
-    id: "prod-4",
+    id: 4,
     name: "フローラルワンピース",
     description:
       "繊細な花柄プリントが美しいワンピース。軽やかな素材で春夏にぴったりです。",
-    price: 698000,
-    category_id: "cat-2",
+    price_in_cents: 6980,
+    category_id: 2,
     category_name: "レディースファッション",
-    stock: 25,
+    quantity: 25,
     image_color: "from-pink-400 to-rose-500",
     created_at: "2024-03-12T00:00:00Z",
   },
   {
-    id: "prod-5",
+    id: 5,
     name: "カシミアニットセーター",
     description:
       "最高級カシミア100%のニットセーター。軽くて暖かく、上品な印象を与えます。",
-    price: 1980000,
-    category_id: "cat-2",
+    price_in_cents: 19800,
+    category_id: 2,
     category_name: "レディースファッション",
-    stock: 15,
+    quantity: 15,
     image_color: "from-rose-400 to-pink-600",
     created_at: "2024-03-15T00:00:00Z",
   },
   {
-    id: "prod-6",
+    id: 6,
     name: "ワイヤレスノイズキャンセリングヘッドホン",
     description:
       "業界最高クラスのノイズキャンセリング機能搭載。最大30時間のバッテリー持続で、音楽も通話もクリアに楽しめます。",
-    price: 3480000,
-    category_id: "cat-3",
+    price_in_cents: 34800,
+    category_id: 3,
     category_name: "家電・ガジェット",
-    stock: 40,
+    quantity: 40,
     image_color: "from-slate-500 to-gray-700",
     created_at: "2024-03-18T00:00:00Z",
   },
   {
-    id: "prod-7",
+    id: 7,
     name: "スマートウォッチ Pro",
     description:
       "健康管理からメッセージ通知まで、日常を便利にするスマートウォッチ。防水対応で運動時も安心です。",
-    price: 4980000,
-    category_id: "cat-3",
+    price_in_cents: 49800,
+    category_id: 3,
     category_name: "家電・ガジェット",
-    stock: 35,
+    quantity: 35,
     image_color: "from-gray-600 to-slate-800",
     created_at: "2024-03-20T00:00:00Z",
   },
   {
-    id: "prod-8",
+    id: 8,
     name: "ポータブルBluetoothスピーカー",
     description:
       "コンパクトなのに迫力のサウンド。IPX7防水で、アウトドアでも使えるBluetoothスピーカーです。",
-    price: 1280000,
-    category_id: "cat-3",
+    price_in_cents: 12800,
+    category_id: 3,
     category_name: "家電・ガジェット",
-    stock: 60,
+    quantity: 60,
     image_color: "from-zinc-500 to-slate-700",
     created_at: "2024-03-22T00:00:00Z",
   },
   {
-    id: "prod-9",
+    id: 9,
     name: "宇治抹茶スイーツセット",
     description:
       "京都宇治の老舗茶園から届く本格抹茶スイーツの詰め合わせ。抹茶フィナンシェ、抹茶チョコレートなど6種入り。",
-    price: 398000,
-    category_id: "cat-4",
+    price_in_cents: 3980,
+    category_id: 4,
     category_name: "食品・グルメ",
-    stock: 100,
+    quantity: 100,
     image_color: "from-amber-400 to-orange-500",
     created_at: "2024-03-25T00:00:00Z",
   },
   {
-    id: "prod-10",
+    id: 10,
     name: "国産黒毛和牛 すき焼きセット",
     description:
       "A5ランクの黒毛和牛を贅沢に使用したすき焼きセット。特製割り下付きで、ご家庭で本格すき焼きをお楽しみいただけます。",
-    price: 980000,
-    category_id: "cat-4",
+    price_in_cents: 9800,
+    category_id: 4,
     category_name: "食品・グルメ",
-    stock: 20,
+    quantity: 20,
     image_color: "from-orange-500 to-red-600",
     created_at: "2024-03-28T00:00:00Z",
   },
   {
-    id: "prod-11",
+    id: 11,
     name: "はじめてのプログラミング入門",
     description:
       "プログラミング未経験者向けの入門書。図解とサンプルコードで基礎からしっかり学べます。",
-    price: 298000,
-    category_id: "cat-5",
+    price_in_cents: 2980,
+    category_id: 5,
     category_name: "本・書籍",
-    stock: 200,
+    quantity: 200,
     image_color: "from-emerald-500 to-teal-600",
     created_at: "2024-04-01T00:00:00Z",
   },
   {
-    id: "prod-12",
+    id: 12,
     name: "AI時代の働き方改革",
     description:
       "AIがビジネスに与える影響と、これからの時代に求められるスキルを解説。ビジネスパーソン必読の一冊。",
-    price: 198000,
-    category_id: "cat-5",
+    price_in_cents: 1980,
+    category_id: 5,
     category_name: "本・書籍",
-    stock: 150,
+    quantity: 150,
     image_color: "from-teal-500 to-emerald-700",
     created_at: "2024-04-05T00:00:00Z",
   },
@@ -251,20 +261,20 @@ export const mockOrders: Order[] = [
     id: "order-1",
     user_id: "user-1",
     status: "delivered",
-    total: 1694000,
+    total: 13940,
     items: [
       {
         id: "oi-1",
         product_id: "prod-1",
         product_name: "プレミアムコットンTシャツ",
-        price: 498000,
+        price: 4980,
         quantity: 2,
       },
       {
         id: "oi-2",
         product_id: "prod-9",
         product_name: "宇治抹茶スイーツセット",
-        price: 398000,
+        price: 3980,
         quantity: 1,
       },
     ],
@@ -276,13 +286,13 @@ export const mockOrders: Order[] = [
     id: "order-2",
     user_id: "user-1",
     status: "shipped",
-    total: 4980000,
+    total: 49800,
     items: [
       {
         id: "oi-3",
         product_id: "prod-7",
         product_name: "スマートウォッチ Pro",
-        price: 4980000,
+        price: 49800,
         quantity: 1,
       },
     ],
@@ -294,20 +304,20 @@ export const mockOrders: Order[] = [
     id: "order-3",
     user_id: "user-1",
     status: "pending",
-    total: 896000,
+    total: 8960,
     items: [
       {
         id: "oi-4",
         product_id: "prod-12",
         product_name: "AI時代の働き方改革",
-        price: 198000,
+        price: 1980,
         quantity: 1,
       },
       {
         id: "oi-5",
         product_id: "prod-4",
         product_name: "フローラルワンピース",
-        price: 698000,
+        price: 6980,
         quantity: 1,
       },
     ],
@@ -328,20 +338,19 @@ export const orderStatusOptions: {
   { value: "cancelled", label: "キャンセル" },
 ];
 
-export function formatPrice(priceInSen: number): string {
-  const yen = Math.floor(priceInSen / 100);
-  return `¥${yen.toLocaleString("ja-JP")}`;
+export function formatPrice(priceInCents: number): string {
+  return `¥${priceInCents.toLocaleString("ja-JP")}`;
 }
 
-export function getProductById(id: string): Product | undefined {
+export function getProductById(id: number): Product | undefined {
   return mockProducts.find((p) => p.id === id);
 }
 
-export function getCategoryById(id: string): Category | undefined {
+export function getCategoryById(id: number): Category | undefined {
   return mockCategories.find((c) => c.id === id);
 }
 
-export function getProductsByCategory(categoryId: string): Product[] {
+export function getProductsByCategory(categoryId: number): Product[] {
   return mockProducts.filter((p) => p.category_id === categoryId);
 }
 
@@ -355,7 +364,7 @@ export function getAddressById(id: string): Address | undefined {
 
 export function getCartTotal(items: CartItem[]): number {
   return items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
+    (sum, item) => sum + item.product.price_in_cents * item.quantity,
     0,
   );
 }

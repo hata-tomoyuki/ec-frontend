@@ -14,13 +14,13 @@ vi.mock("next/link", () => ({
 }));
 
 const product: Product = {
-  id: "p1",
+  id: 1,
   name: "テスト商品",
   description: "説明",
-  price: 498000,
-  category_id: "c1",
+  price_in_cents: 4980,
+  category_id: 1,
   category_name: "テストカテゴリ",
-  stock: 10,
+  quantity: 10,
   image_color: "from-blue-400 to-blue-600",
   created_at: "2024-01-01T00:00:00Z",
 };
@@ -34,7 +34,7 @@ describe("ProductCard", () => {
 
   it("links to product detail page", () => {
     render(<ProductCard product={product} />);
-    expect(screen.getByRole("link")).toHaveAttribute("href", "/products/p1");
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/products/1");
   });
 
   it("displays formatted price", () => {

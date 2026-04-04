@@ -14,9 +14,9 @@ interface AdminProductTableProps {
 export default function AdminProductTable({
   products,
 }: AdminProductTableProps) {
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  function handleDelete(id: string) {
+  function handleDelete(id: number) {
     setConfirmDeleteId(null);
     // TODO: API呼び出し
     console.log("Delete product:", id);
@@ -68,13 +68,13 @@ export default function AdminProductTable({
                 {product.category_name}
               </td>
               <td className="py-3 px-4 text-right text-stone-800">
-                {formatPrice(product.price)}
+                {formatPrice(product.price_in_cents)}
               </td>
               <td className="py-3 px-4 text-right">
-                {product.stock <= 10 ? (
-                  <Badge variant="warning">{product.stock}</Badge>
+                {product.quantity <= 10 ? (
+                  <Badge variant="warning">{product.quantity}</Badge>
                 ) : (
-                  <span className="text-stone-800">{product.stock}</span>
+                  <span className="text-stone-800">{product.quantity}</span>
                 )}
               </td>
               <td className="py-3 px-4 text-right">

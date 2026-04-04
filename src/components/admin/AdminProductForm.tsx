@@ -22,9 +22,9 @@ export default function AdminProductForm({
   const [name, setName] = useState(product?.name ?? "");
   const [description, setDescription] = useState(product?.description ?? "");
   const [price, setPrice] = useState(
-    product ? String(product.price / 100) : "",
+    product ? String(product.price_in_cents) : "",
   );
-  const [stock, setStock] = useState(product ? String(product.stock) : "");
+  const [stock, setStock] = useState(product ? String(product.quantity) : "");
   const [categoryId, setCategoryId] = useState(product?.category_id ?? "");
 
   function handleSubmit(e: React.FormEvent) {
@@ -33,8 +33,8 @@ export default function AdminProductForm({
     console.log("Submit product:", {
       name,
       description,
-      price: Number(price) * 100,
-      stock: Number(stock),
+      price_in_cents: Number(price),
+      quantity: Number(stock),
       category_id: categoryId,
     });
     router.push("/admin/products");

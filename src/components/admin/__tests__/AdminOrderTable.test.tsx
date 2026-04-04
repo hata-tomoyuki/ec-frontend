@@ -18,20 +18,20 @@ const orders: Order[] = [
     id: "order-1",
     user_id: "user-1",
     status: "delivered",
-    total: 1694000,
+    total: 16940,
     items: [
       {
         id: "oi-1",
         product_id: "p1",
         product_name: "A",
-        price: 498000,
+        price: 4980,
         quantity: 2,
       },
       {
         id: "oi-2",
         product_id: "p2",
         product_name: "B",
-        price: 398000,
+        price: 3980,
         quantity: 1,
       },
     ],

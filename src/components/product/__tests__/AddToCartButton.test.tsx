@@ -15,26 +15,26 @@ vi.mock("next/link", () => ({
 
 describe("AddToCartButton", () => {
   it("shows disabled button when out of stock", () => {
-    render(<AddToCartButton productId="p1" stock={0} />);
+    render(<AddToCartButton productId={1} quantity={0} />);
     expect(screen.getByRole("button", { name: "在庫切れ" })).toBeDisabled();
   });
 
   it("shows add to cart button when in stock", () => {
-    render(<AddToCartButton productId="p1" stock={5} />);
+    render(<AddToCartButton productId={1} quantity={5} />);
     expect(
       screen.getByRole("button", { name: "カートに追加" }),
     ).toBeInTheDocument();
   });
 
   it("shows quantity selector when in stock", () => {
-    render(<AddToCartButton productId="p1" stock={5} />);
+    render(<AddToCartButton productId={1} quantity={5} />);
     expect(screen.getByText("1")).toBeInTheDocument();
     expect(screen.getByText("数量:")).toBeInTheDocument();
   });
 
   it("changes button text after adding to cart", async () => {
     const user = userEvent.setup();
-    render(<AddToCartButton productId="p1" stock={5} />);
+    render(<AddToCartButton productId={1} quantity={5} />);
 
     await user.click(screen.getByRole("button", { name: "カートに追加" }));
     expect(

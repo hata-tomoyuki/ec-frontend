@@ -21,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="text-sm font-semibold text-stone-800 group-hover:text-teal-700 transition-colors line-clamp-2 mb-2">
             {product.name}
           </h3>
-          <PriceDisplay price={product.price} size="md" />
+          <PriceDisplay price={product.price_in_cents} size="md" />
         </div>
       </div>
     </Link>

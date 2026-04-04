@@ -17,13 +17,13 @@ const item: CartItem = {
   id: "cart-1",
   product_id: "p1",
   product: {
-    id: "p1",
+    id: 1,
     name: "テスト商品",
     description: "",
-    price: 498000,
-    category_id: "c1",
+    price_in_cents: 4980,
+    category_id: 1,
     category_name: "Cat",
-    stock: 10,
+    quantity: 10,
     image_color: "from-blue-400 to-blue-600",
     created_at: "2024-01-01T00:00:00Z",
   },
@@ -39,7 +39,7 @@ describe("CartItemRow", () => {
   it("links to product detail", () => {
     render(<CartItemRow item={item} />);
     const links = screen.getAllByRole("link");
-    expect(links[0]).toHaveAttribute("href", "/products/p1");
+    expect(links[0]).toHaveAttribute("href", "/products/1");
   });
 
   it("shows delete button", () => {

@@ -3,20 +3,20 @@ import ProductDetailInfo from "../ProductDetailInfo";
 import type { Product } from "@/types";
 
 const inStockProduct: Product = {
-  id: "p1",
+  id: 1,
   name: "テスト商品",
   description: "詳細な説明文です",
-  price: 1280000,
-  category_id: "c1",
+  price_in_cents: 12800,
+  category_id: 1,
   category_name: "ファッション",
-  stock: 20,
+  quantity: 20,
   image_color: "from-blue-400 to-blue-600",
   created_at: "2024-01-01T00:00:00Z",
 };
 
 const outOfStockProduct: Product = {
   ...inStockProduct,
-  stock: 0,
+  quantity: 0,
 };
 
 describe("ProductDetailInfo", () => {

@@ -31,13 +31,13 @@ export default function CartItemRow({ item }: CartItemRowProps) {
           {item.product.name}
         </Link>
         <div className="mt-1">
-          <PriceDisplay price={item.product.price} size="sm" />
+          <PriceDisplay price={item.product.price_in_cents} size="sm" />
         </div>
         <div className="mt-3 flex items-center gap-4">
           <QuantitySelector
             quantity={quantity}
             onChange={setQuantity}
-            max={Math.min(item.product.stock, 10)}
+            max={Math.min(item.product.quantity, 10)}
           />
           <button
             type="button"
@@ -50,7 +50,7 @@ export default function CartItemRow({ item }: CartItemRowProps) {
 
       {/* Subtotal */}
       <div className="shrink-0 text-right">
-        <PriceDisplay price={item.product.price * quantity} size="sm" />
+        <PriceDisplay price={item.product.price_in_cents * quantity} size="sm" />
       </div>
     </div>
   );

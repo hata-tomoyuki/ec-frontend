@@ -21,29 +21,33 @@ vi.mock("next/link", () => ({
 
 const categories: Category[] = [
   {
-    id: "c1",
+    id: 1,
     name: "ファッション",
     description: "",
     image_color: "",
     product_count: 5,
+    created_at: "",
+    updated_at: "",
   },
   {
-    id: "c2",
+    id: 2,
     name: "家電",
     description: "",
     image_color: "",
     product_count: 3,
+    created_at: "",
+    updated_at: "",
   },
 ];
 
 const product: Product = {
-  id: "p1",
+  id: 1,
   name: "テスト商品",
   description: "テスト説明",
-  price: 498000,
-  category_id: "c1",
+  price_in_cents: 4980,
+  category_id: 1,
   category_name: "ファッション",
-  stock: 50,
+  quantity: 50,
   image_color: "",
   created_at: "",
 };
@@ -75,7 +79,6 @@ describe("AdminProductForm", () => {
   it("pre-fills fields with product data when editing", () => {
     render(<AdminProductForm categories={categories} product={product} />);
     expect(screen.getByLabelText("商品名")).toHaveValue("テスト商品");
-    // price is stored in sen, displayed in yen
     expect(screen.getByLabelText("価格（円）")).toHaveValue(4980);
     expect(screen.getByLabelText("在庫数")).toHaveValue(50);
   });

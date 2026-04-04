@@ -13,13 +13,13 @@ export default async function AdminCategoryEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const category = getCategoryById(id);
+  const category = getCategoryById(Number(id));
 
   if (!category) {
     notFound();
   }
 
-  const products = getProductsByCategory(id);
+  const products = getProductsByCategory(Number(id));
 
   return (
     <div className="space-y-6">
@@ -67,10 +67,10 @@ export default async function AdminCategoryEditPage({
                       </Link>
                     </td>
                     <td className="py-3 px-6 text-right text-stone-800">
-                      {formatPrice(product.price)}
+                      {formatPrice(product.price_in_cents)}
                     </td>
                     <td className="py-3 px-6 text-right text-stone-800">
-                      {product.stock}
+                      {product.quantity}
                     </td>
                   </tr>
                 ))}

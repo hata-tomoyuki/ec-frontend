@@ -13,14 +13,14 @@ vi.mock("next/link", () => ({
   },
 }));
 
-const makeProduct = (id: string, name: string): Product => ({
+const makeProduct = (id: number, name: string): Product => ({
   id,
   name,
   description: "",
-  price: 100000,
-  category_id: "c1",
+  price_in_cents: 1000,
+  category_id: 1,
   category_name: "Cat",
-  stock: 5,
+  quantity: 5,
   image_color: "from-gray-400 to-gray-600",
   created_at: "2024-01-01T00:00:00Z",
 });
@@ -28,9 +28,9 @@ const makeProduct = (id: string, name: string): Product => ({
 describe("ProductGrid", () => {
   it("renders all products", () => {
     const products = [
-      makeProduct("1", "商品A"),
-      makeProduct("2", "商品B"),
-      makeProduct("3", "商品C"),
+      makeProduct(1, "商品A"),
+      makeProduct(2, "商品B"),
+      makeProduct(3, "商品C"),
     ];
     render(<ProductGrid products={products} />);
     expect(screen.getByText("商品A")).toBeInTheDocument();
