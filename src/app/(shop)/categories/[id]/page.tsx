@@ -1,16 +1,9 @@
 import { notFound } from "next/navigation";
-import {
-  mockCategories,
-  getCategoryById,
-  getProductsByCategory,
-} from "@/data/mock";
+import { getCategory, getCategoryProducts } from "@/lib/api/categories";
+import { ApiError } from "@/lib/api/client";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ProductGrid from "@/components/product/ProductGrid";
 import EmptyState from "@/components/ui/EmptyState";
-
-export async function generateStaticParams() {
-  return mockCategories.map((c) => ({ id: String(c.id) }));
-}
 
 export default async function CategoryDetailPage({
   params,
@@ -18,13 +11,16 @@ export default async function CategoryDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const category = getCategoryById(Number(id));
 
-  if (!category) {
-    notFound();
+  let category;
+  try {
+    category = await getCategory(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) notFound();
+    throw e;
   }
 
-  const products = getProductsByCategory(Number(id));
+  const products = await getCategoryProducts(Number(id));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

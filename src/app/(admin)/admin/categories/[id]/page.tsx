@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  getCategoryById,
-  getProductsByCategory,
-  formatPrice,
-} from "@/data/mock";
+import { getCategory, getCategoryProducts } from "@/lib/api/categories";
+import { ApiError } from "@/lib/api/client";
+import { formatPrice } from "@/data/mock";
 import AdminCategoryForm from "@/components/admin/AdminCategoryForm";
 
 export default async function AdminCategoryEditPage({
@@ -13,13 +11,16 @@ export default async function AdminCategoryEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const category = getCategoryById(Number(id));
 
-  if (!category) {
-    notFound();
+  let category;
+  try {
+    category = await getCategory(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) notFound();
+    throw e;
   }
 
-  const products = getProductsByCategory(Number(id));
+  const products = await getCategoryProducts(Number(id));
 
   return (
     <div className="space-y-6">

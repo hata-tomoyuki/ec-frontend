@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { mockCategories } from "@/data/mock";
+import { getCategories } from "@/lib/api/categories";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata = {
   title: "カテゴリ一覧",
 };
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const categories = await getCategories();
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumb
@@ -16,7 +17,7 @@ export default function CategoriesPage() {
         カテゴリ一覧
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockCategories.map((category) => (
+        {categories.map((category) => (
           <Link
             key={category.id}
             href={`/categories/${category.id}`}

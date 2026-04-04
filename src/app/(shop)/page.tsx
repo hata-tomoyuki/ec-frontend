@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { mockCategories, mockProducts } from "@/data/mock";
+import { getProducts } from "@/lib/api/products";
+import { getCategories } from "@/lib/api/categories";
 import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 
-export default function HomePage() {
-  const featuredProducts = mockProducts.slice(0, 4);
+export default async function HomePage() {
+  const [categories, products] = await Promise.all([
+    getCategories(),
+    getProducts(),
+  ]);
+  const featuredProducts = products.slice(0, 4);
 
   return (
     <div>
@@ -40,7 +45,7 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {mockCategories.map((category) => (
+          {categories.map((category) => (
             <Link
               key={category.id}
               href={`/categories/${category.id}`}

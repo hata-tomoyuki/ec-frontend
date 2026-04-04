@@ -1,8 +1,9 @@
-import { mockCategories } from "@/data/mock";
+import { getCategories } from "@/lib/api/categories";
 import Button from "@/components/ui/Button";
 import AdminCategoryTable from "@/components/admin/AdminCategoryTable";
 
-export default function AdminCategoriesPage() {
+export default async function AdminCategoriesPage() {
+  const categories = await getCategories();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -10,7 +11,7 @@ export default function AdminCategoriesPage() {
         <Button href="/admin/categories/new">カテゴリを追加</Button>
       </div>
       <div className="bg-white rounded-xl border border-stone-200 shadow-sm">
-        <AdminCategoryTable categories={mockCategories} />
+        <AdminCategoryTable categories={categories} />
       </div>
     </div>
   );

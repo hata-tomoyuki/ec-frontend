@@ -1,17 +1,11 @@
 import { notFound } from "next/navigation";
-import {
-  mockProducts,
-  getProductById,
-  getProductsByCategory,
-} from "@/data/mock";
+import { ApiError } from "@/lib/api/client";
+import { getProduct } from "@/lib/api/products";
+import { getCategoryProducts } from "@/lib/api/categories";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ProductDetailInfo from "@/components/product/ProductDetailInfo";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import ProductGrid from "@/components/product/ProductGrid";
-
-export async function generateStaticParams() {
-  return mockProducts.map((p) => ({ id: String(p.id) }));
-}
 
 export default async function ProductDetailPage({
   params,
@@ -19,13 +13,17 @@ export default async function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = getProductById(Number(id));
 
-  if (!product) {
-    notFound();
+  let product;
+  try {
+    product = await getProduct(Number(id));
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) notFound();
+    throw e;
   }
 
-  const relatedProducts = getProductsByCategory(product.category_id)
+  const categoryProducts = await getCategoryProducts(product.category_id);
+  const relatedProducts = categoryProducts
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 

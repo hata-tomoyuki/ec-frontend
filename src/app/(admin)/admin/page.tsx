@@ -1,14 +1,15 @@
 import Link from "next/link";
-import {
-  mockProducts,
-  mockCategories,
-  mockOrders,
-  formatPrice,
-} from "@/data/mock";
+import { mockOrders, formatPrice } from "@/data/mock";
+import { getProducts } from "@/lib/api/products";
+import { getCategories } from "@/lib/api/categories";
 import AdminStatsCard from "@/components/admin/AdminStatsCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories(),
+  ]);
   const pendingOrders = mockOrders.filter((o) => o.status === "pending");
 
   return (
@@ -18,10 +19,10 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <AdminStatsCard
           title="商品数"
-          value={mockProducts.length}
-          subtitle={`${mockCategories.length} カテゴリ`}
+          value={products.length}
+          subtitle={`${categories.length} カテゴリ`}
         />
-        <AdminStatsCard title="カテゴリ数" value={mockCategories.length} />
+        <AdminStatsCard title="カテゴリ数" value={categories.length} />
         <AdminStatsCard title="注文数" value={mockOrders.length} />
         <AdminStatsCard
           title="未処理注文"
