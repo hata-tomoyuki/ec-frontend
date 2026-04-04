@@ -6,16 +6,12 @@ interface OrderStatusTimelineProps {
 
 const steps: { key: OrderStatus; label: string }[] = [
   { key: "pending", label: "注文受付" },
-  { key: "confirmed", label: "確認済み" },
-  { key: "shipped", label: "発送済み" },
-  { key: "delivered", label: "配達完了" },
+  { key: "completed", label: "完了" },
 ];
 
 const statusOrder: Record<OrderStatus, number> = {
   pending: 0,
-  confirmed: 1,
-  shipped: 2,
-  delivered: 3,
+  completed: 1,
   cancelled: -1,
 };
 

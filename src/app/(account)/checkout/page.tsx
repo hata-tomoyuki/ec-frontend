@@ -15,7 +15,7 @@ type Step = "address" | "confirm" | "complete";
 export default function CheckoutPage() {
   const [step, setStep] = useState<Step>("address");
   const [selectedAddress, setSelectedAddress] = useState(
-    mockAddresses[0]?.id || "",
+    mockAddresses[0]?.id ?? 0,
   );
   const items = mockCartItems;
   const total = getCartTotal(items);
@@ -42,7 +42,7 @@ export default function CheckoutPage() {
           ご注文ありがとうございます
         </h1>
         <p className="text-stone-500 mb-8">
-          注文が確定されました。注文番号: order-new-1
+          注文が確定されました。
         </p>
         <div className="flex justify-center gap-4">
           <Button href="/account/orders">注文履歴を見る</Button>
@@ -69,7 +69,7 @@ export default function CheckoutPage() {
         >
           1. 配送先
         </span>
-        <span className="text-stone-300">→</span>
+        <span className="text-stone-300">&rarr;</span>
         <span
           className={`px-3 py-1 rounded-full font-medium ${
             step === "confirm"
@@ -101,24 +101,18 @@ export default function CheckoutPage() {
                   name="address"
                   value={addr.id}
                   checked={selectedAddress === addr.id}
-                  onChange={(e) => setSelectedAddress(e.target.value)}
+                  onChange={() => setSelectedAddress(addr.id)}
                   className="mt-1 accent-teal-700"
                 />
                 <div>
                   <p className="text-sm font-medium text-stone-800">
-                    〒{addr.postal_code}
+                    〒{addr.zip_code}
                   </p>
                   <p className="text-sm text-stone-600">
-                    {addr.prefecture}
+                    {addr.state}
                     {addr.city}
-                    {addr.line1}
-                    {addr.line2 && ` ${addr.line2}`}
+                    {addr.street}
                   </p>
-                  {addr.is_default && (
-                    <span className="inline-block mt-1 text-xs text-teal-700 font-medium">
-                      デフォルト
-                    </span>
-                  )}
                 </div>
               </label>
             ))}
@@ -139,18 +133,18 @@ export default function CheckoutPage() {
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 py-3">
                   <div
-                    className={`w-16 h-16 rounded-lg bg-gradient-to-br ${item.product.image_color} shrink-0`}
+                    className="w-16 h-16 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400 shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-stone-800 line-clamp-1">
-                      {item.product.name}
+                      {item.product_name}
                     </p>
                     <p className="text-sm text-stone-500">
-                      {formatPrice(item.product.price_in_cents)} × {item.quantity}
+                      {formatPrice(item.product_price_in_cents)} × {item.quantity}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-stone-800 shrink-0">
-                    {formatPrice(item.product.price_in_cents * item.quantity)}
+                    {formatPrice(item.product_price_in_cents * item.quantity)}
                   </p>
                 </div>
               ))}
@@ -164,10 +158,9 @@ export default function CheckoutPage() {
               if (!addr) return null;
               return (
                 <p className="text-sm text-stone-600">
-                  〒{addr.postal_code} {addr.prefecture}
+                  〒{addr.zip_code} {addr.state}
                   {addr.city}
-                  {addr.line1}
-                  {addr.line2 && ` ${addr.line2}`}
+                  {addr.street}
                 </p>
               );
             })()}

@@ -15,36 +15,14 @@ vi.mock("next/link", () => ({
 
 const orders: Order[] = [
   {
-    id: "order-1",
-    user_id: "user-1",
-    status: "delivered",
+    id: 1,
+    customer_id: 1,
+    status: "completed",
     total: 16940,
     items: [
-      {
-        id: "oi-1",
-        product_id: "p1",
-        product_name: "A",
-        price: 4980,
-        quantity: 2,
-      },
-      {
-        id: "oi-2",
-        product_id: "p2",
-        product_name: "B",
-        price: 3980,
-        quantity: 1,
-      },
+      { product_id: 1, quantity: 2, price_in_cents: 4980 },
+      { product_id: 2, quantity: 1, price_in_cents: 3980 },
     ],
-    shipping_address: {
-      id: "a1",
-      user_id: "u1",
-      postal_code: "150-0001",
-      prefecture: "東京都",
-      city: "渋谷区",
-      line1: "1-2-3",
-      line2: "",
-      is_default: true,
-    },
     created_at: "2024-05-10T14:30:00Z",
     updated_at: "2024-05-15T09:00:00Z",
   },
@@ -58,8 +36,8 @@ describe("AdminOrderTable", () => {
 
   it("renders order row", () => {
     render(<AdminOrderTable orders={orders} />);
-    expect(screen.getByText("order-1")).toBeInTheDocument();
-    expect(screen.getByText("配達完了")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "1" })).toBeInTheDocument();
+    expect(screen.getByText("完了")).toBeInTheDocument();
     expect(screen.getByText("¥16,940")).toBeInTheDocument();
   });
 
@@ -72,7 +50,6 @@ describe("AdminOrderTable", () => {
 
   it("shows total item quantity", () => {
     render(<AdminOrderTable orders={orders} />);
-    // 2 + 1 = 3 items total
     expect(screen.getByText("3")).toBeInTheDocument();
   });
 });

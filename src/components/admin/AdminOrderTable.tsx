@@ -53,7 +53,7 @@ export default function AdminOrderTable({ orders }: AdminOrderTableProps) {
                   {order.id}
                 </Link>
               </td>
-              <td className="py-3 px-4 text-stone-600">{order.user_id}</td>
+              <td className="py-3 px-4 text-stone-600">{order.customer_id}</td>
               <td className="py-3 px-4">
                 <StatusBadge status={order.status} />
               </td>

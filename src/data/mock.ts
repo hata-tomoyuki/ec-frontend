@@ -9,10 +9,10 @@ import type {
 } from "@/types";
 
 export const mockUser: User = {
-  id: "user-1",
+  id: 1,
+  name: "田中太郎",
   email: "tanaka@example.com",
-  first_name: "太郎",
-  last_name: "田中",
+  role: "customer",
   created_at: "2024-01-15T10:00:00Z",
   updated_at: "2024-06-01T08:30:00Z",
 };
@@ -214,114 +214,87 @@ export const mockProducts: Product[] = [
 
 export const mockAddresses: Address[] = [
   {
-    id: "addr-1",
-    user_id: "user-1",
-    postal_code: "150-0001",
-    prefecture: "東京都",
+    id: 1,
+    user_id: 1,
+    zip_code: "150-0001",
+    state: "東京都",
     city: "渋谷区",
-    line1: "神宮前1-2-3",
-    line2: "ABCマンション 401号室",
-    is_default: true,
+    street: "神宮前1-2-3 ABCマンション 401号室",
+    country: "Japan",
+    created_at: "2024-01-15T10:00:00Z",
+    updated_at: "2024-01-15T10:00:00Z",
   },
   {
-    id: "addr-2",
-    user_id: "user-1",
-    postal_code: "530-0001",
-    prefecture: "大阪府",
+    id: 2,
+    user_id: 1,
+    zip_code: "530-0001",
+    state: "大阪府",
     city: "大阪市北区",
-    line1: "梅田4-5-6",
-    line2: "",
-    is_default: false,
+    street: "梅田4-5-6",
+    country: "Japan",
+    created_at: "2024-02-01T10:00:00Z",
+    updated_at: "2024-02-01T10:00:00Z",
   },
 ];
 
 export const mockCartItems: CartItem[] = [
   {
-    id: "cart-1",
-    product_id: "prod-1",
-    product: mockProducts[0],
+    id: 1,
+    cart_id: 1,
+    product_id: 1,
     quantity: 2,
+    product_name: "プレミアムコットンTシャツ",
+    product_price_in_cents: 4980,
   },
   {
-    id: "cart-2",
-    product_id: "prod-6",
-    product: mockProducts[5],
+    id: 2,
+    cart_id: 1,
+    product_id: 6,
     quantity: 1,
+    product_name: "ワイヤレスノイズキャンセリングヘッドホン",
+    product_price_in_cents: 34800,
   },
   {
-    id: "cart-3",
-    product_id: "prod-9",
-    product: mockProducts[8],
+    id: 3,
+    cart_id: 1,
+    product_id: 9,
     quantity: 3,
+    product_name: "宇治抹茶スイーツセット",
+    product_price_in_cents: 3980,
   },
 ];
 
 export const mockOrders: Order[] = [
   {
-    id: "order-1",
-    user_id: "user-1",
-    status: "delivered",
+    id: 1,
+    customer_id: 1,
+    status: "completed",
     total: 13940,
     items: [
-      {
-        id: "oi-1",
-        product_id: "prod-1",
-        product_name: "プレミアムコットンTシャツ",
-        price: 4980,
-        quantity: 2,
-      },
-      {
-        id: "oi-2",
-        product_id: "prod-9",
-        product_name: "宇治抹茶スイーツセット",
-        price: 3980,
-        quantity: 1,
-      },
+      { product_id: 1, quantity: 2, price_in_cents: 4980 },
+      { product_id: 9, quantity: 1, price_in_cents: 3980 },
     ],
-    shipping_address: mockAddresses[0],
     created_at: "2024-05-10T14:30:00Z",
     updated_at: "2024-05-15T09:00:00Z",
   },
   {
-    id: "order-2",
-    user_id: "user-1",
-    status: "shipped",
+    id: 2,
+    customer_id: 1,
+    status: "completed",
     total: 49800,
-    items: [
-      {
-        id: "oi-3",
-        product_id: "prod-7",
-        product_name: "スマートウォッチ Pro",
-        price: 49800,
-        quantity: 1,
-      },
-    ],
-    shipping_address: mockAddresses[0],
+    items: [{ product_id: 7, quantity: 1, price_in_cents: 49800 }],
     created_at: "2024-06-01T10:00:00Z",
     updated_at: "2024-06-03T16:00:00Z",
   },
   {
-    id: "order-3",
-    user_id: "user-1",
+    id: 3,
+    customer_id: 1,
     status: "pending",
     total: 8960,
     items: [
-      {
-        id: "oi-4",
-        product_id: "prod-12",
-        product_name: "AI時代の働き方改革",
-        price: 1980,
-        quantity: 1,
-      },
-      {
-        id: "oi-5",
-        product_id: "prod-4",
-        product_name: "フローラルワンピース",
-        price: 6980,
-        quantity: 1,
-      },
+      { product_id: 12, quantity: 1, price_in_cents: 1980 },
+      { product_id: 4, quantity: 1, price_in_cents: 6980 },
     ],
-    shipping_address: mockAddresses[1],
     created_at: "2024-06-10T08:00:00Z",
     updated_at: "2024-06-10T08:00:00Z",
   },
@@ -332,9 +305,7 @@ export const orderStatusOptions: {
   label: string;
 }[] = [
   { value: "pending", label: "注文受付" },
-  { value: "confirmed", label: "確認済み" },
-  { value: "shipped", label: "発送済み" },
-  { value: "delivered", label: "配達完了" },
+  { value: "completed", label: "完了" },
   { value: "cancelled", label: "キャンセル" },
 ];
 
@@ -354,17 +325,17 @@ export function getProductsByCategory(categoryId: number): Product[] {
   return mockProducts.filter((p) => p.category_id === categoryId);
 }
 
-export function getOrderById(id: string): Order | undefined {
+export function getOrderById(id: number): Order | undefined {
   return mockOrders.find((o) => o.id === id);
 }
 
-export function getAddressById(id: string): Address | undefined {
+export function getAddressById(id: number): Address | undefined {
   return mockAddresses.find((a) => a.id === id);
 }
 
 export function getCartTotal(items: CartItem[]): number {
   return items.reduce(
-    (sum, item) => sum + item.product.price_in_cents * item.quantity,
+    (sum, item) => sum + item.product_price_in_cents * item.quantity,
     0,
   );
 }

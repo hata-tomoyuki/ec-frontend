@@ -7,7 +7,7 @@ import OrderStatusTimeline from "@/components/order/OrderStatusTimeline";
 import OrderItemRow from "@/components/order/OrderItemRow";
 
 export async function generateStaticParams() {
-  return mockOrders.map((o) => ({ id: o.id }));
+  return mockOrders.map((o) => ({ id: String(o.id) }));
 }
 
 export default async function OrderDetailPage({
@@ -16,7 +16,7 @@ export default async function OrderDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const order = getOrderById(id);
+  const order = getOrderById(Number(id));
 
   if (!order) {
     notFound();
@@ -52,8 +52,8 @@ export default async function OrderDetailPage({
         {/* Items */}
         <Card>
           <h2 className="text-sm font-bold text-stone-900 mb-4">注文商品</h2>
-          {order.items.map((item) => (
-            <OrderItemRow key={item.id} item={item} />
+          {order.items.map((item, index) => (
+            <OrderItemRow key={index} item={item} />
           ))}
           <div className="flex justify-between mt-4 pt-4 border-t border-stone-200">
             <span className="font-bold text-stone-900">合計</span>
@@ -61,18 +61,6 @@ export default async function OrderDetailPage({
               {formatPrice(order.total)}
             </span>
           </div>
-        </Card>
-
-        {/* Shipping address */}
-        <Card>
-          <h2 className="text-sm font-bold text-stone-900 mb-2">配送先</h2>
-          <p className="text-sm text-stone-600">
-            〒{order.shipping_address.postal_code}{" "}
-            {order.shipping_address.prefecture}
-            {order.shipping_address.city}
-            {order.shipping_address.line1}
-            {order.shipping_address.line2 && ` ${order.shipping_address.line2}`}
-          </p>
         </Card>
 
         {/* Cancel button */}

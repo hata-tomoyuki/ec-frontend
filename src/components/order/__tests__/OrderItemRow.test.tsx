@@ -3,17 +3,15 @@ import OrderItemRow from "../OrderItemRow";
 import type { OrderItem } from "@/types";
 
 const item: OrderItem = {
-  id: "oi-1",
-  product_id: "p1",
-  product_name: "プレミアムTシャツ",
-  price: 4980,
+  product_id: 1,
   quantity: 2,
+  price_in_cents: 4980,
 };
 
 describe("OrderItemRow", () => {
-  it("renders product name", () => {
+  it("renders product ID", () => {
     render(<OrderItemRow item={item} />);
-    expect(screen.getByText("プレミアムTシャツ")).toBeInTheDocument();
+    expect(screen.getByText("商品ID: 1")).toBeInTheDocument();
   });
 
   it("displays unit price and quantity", () => {

@@ -15,20 +15,12 @@ vi.mock("next/link", () => ({
 
 const items: CartItem[] = [
   {
-    id: "c1",
-    product_id: "p1",
-    product: {
-      id: 1,
-      name: "A",
-      description: "",
-      price_in_cents: 1000,
-      category_id: 1,
-      category_name: "",
-      quantity: 10,
-      image_color: "",
-      created_at: "",
-    },
+    id: 1,
+    cart_id: 1,
+    product_id: 1,
     quantity: 2,
+    product_name: "A",
+    product_price_in_cents: 1000,
   },
 ];
 

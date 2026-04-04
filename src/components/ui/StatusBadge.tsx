@@ -13,9 +13,7 @@ const statusConfig: Record<
   }
 > = {
   pending: { label: "注文受付", variant: "warning" },
-  confirmed: { label: "確認済み", variant: "info" },
-  shipped: { label: "発送済み", variant: "info" },
-  delivered: { label: "配達完了", variant: "success" },
+  completed: { label: "完了", variant: "success" },
   cancelled: { label: "キャンセル", variant: "danger" },
 };
 

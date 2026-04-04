@@ -5,8 +5,7 @@ import ProfileForm from "../ProfileForm";
 describe("ProfileForm", () => {
   it("renders input fields with initial values from mock user", () => {
     render(<ProfileForm />);
-    expect(screen.getByLabelText("姓")).toHaveValue("田中");
-    expect(screen.getByLabelText("名")).toHaveValue("太郎");
+    expect(screen.getByLabelText("名前")).toHaveValue("田中太郎");
     expect(screen.getByLabelText("メールアドレス")).toHaveValue(
       "tanaka@example.com",
     );

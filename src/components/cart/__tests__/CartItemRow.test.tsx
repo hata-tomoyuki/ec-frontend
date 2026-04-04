@@ -14,20 +14,12 @@ vi.mock("next/link", () => ({
 }));
 
 const item: CartItem = {
-  id: "cart-1",
-  product_id: "p1",
-  product: {
-    id: 1,
-    name: "テスト商品",
-    description: "",
-    price_in_cents: 4980,
-    category_id: 1,
-    category_name: "Cat",
-    quantity: 10,
-    image_color: "from-blue-400 to-blue-600",
-    created_at: "2024-01-01T00:00:00Z",
-  },
+  id: 1,
+  cart_id: 1,
+  product_id: 1,
   quantity: 2,
+  product_name: "テスト商品",
+  product_price_in_cents: 4980,
 };
 
 describe("CartItemRow", () => {

@@ -4,9 +4,7 @@ import StatusBadge from "../StatusBadge";
 describe("StatusBadge", () => {
   it.each([
     ["pending", "注文受付"],
-    ["confirmed", "確認済み"],
-    ["shipped", "発送済み"],
-    ["delivered", "配達完了"],
+    ["completed", "完了"],
     ["cancelled", "キャンセル"],
   ] as const)("renders %s status as '%s'", (status, label) => {
     render(<StatusBadge status={status} />);
@@ -18,9 +16,9 @@ describe("StatusBadge", () => {
     expect(screen.getByText("注文受付")).toHaveClass("bg-amber-50");
   });
 
-  it("applies success variant for delivered", () => {
-    render(<StatusBadge status="delivered" />);
-    expect(screen.getByText("配達完了")).toHaveClass("bg-emerald-50");
+  it("applies success variant for completed", () => {
+    render(<StatusBadge status="completed" />);
+    expect(screen.getByText("完了")).toHaveClass("bg-emerald-50");
   });
 
   it("applies danger variant for cancelled", () => {

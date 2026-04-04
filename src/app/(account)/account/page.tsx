@@ -11,7 +11,7 @@ export default function AccountDashboardPage() {
     <div>
       <h1 className="text-2xl font-bold text-stone-900 mb-2">マイページ</h1>
       <p className="text-stone-500 mb-8">
-        ようこそ、{mockUser.last_name} {mockUser.first_name}さん
+        ようこそ、{mockUser.name}さん
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

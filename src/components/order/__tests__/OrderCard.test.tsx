@@ -14,36 +14,14 @@ vi.mock("next/link", () => ({
 }));
 
 const order: Order = {
-  id: "order-1",
-  user_id: "user-1",
-  status: "delivered",
+  id: 1,
+  customer_id: 1,
+  status: "completed",
   total: 16940,
   items: [
-    {
-      id: "oi-1",
-      product_id: "p1",
-      product_name: "商品A",
-      price: 4980,
-      quantity: 2,
-    },
-    {
-      id: "oi-2",
-      product_id: "p2",
-      product_name: "商品B",
-      price: 3980,
-      quantity: 1,
-    },
+    { product_id: 1, quantity: 2, price_in_cents: 4980 },
+    { product_id: 2, quantity: 1, price_in_cents: 3980 },
   ],
-  shipping_address: {
-    id: "addr-1",
-    user_id: "user-1",
-    postal_code: "150-0001",
-    prefecture: "東京都",
-    city: "渋谷区",
-    line1: "1-2-3",
-    line2: "",
-    is_default: true,
-  },
   created_at: "2024-05-10T14:30:00Z",
   updated_at: "2024-05-15T09:00:00Z",
 };
@@ -51,20 +29,20 @@ const order: Order = {
 describe("OrderCard", () => {
   it("renders order ID", () => {
     render(<OrderCard order={order} />);
-    expect(screen.getByText("order-1")).toBeInTheDocument();
+    expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   it("links to order detail page", () => {
     render(<OrderCard order={order} />);
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "/account/orders/order-1",
+      "/account/orders/1",
     );
   });
 
   it("renders status badge", () => {
     render(<OrderCard order={order} />);
-    expect(screen.getByText("配達完了")).toBeInTheDocument();
+    expect(screen.getByText("完了")).toBeInTheDocument();
   });
 
   it("displays total price", () => {

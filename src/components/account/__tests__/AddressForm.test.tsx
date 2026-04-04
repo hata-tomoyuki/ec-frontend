@@ -20,14 +20,15 @@ vi.mock("next/link", () => ({
 }));
 
 const address: Address = {
-  id: "addr-1",
-  user_id: "user-1",
-  postal_code: "150-0001",
-  prefecture: "東京都",
+  id: 1,
+  user_id: 1,
+  zip_code: "150-0001",
+  state: "東京都",
   city: "渋谷区",
-  line1: "神宮前1-2-3",
-  line2: "ABCマンション",
-  is_default: true,
+  street: "神宮前1-2-3",
+  country: "Japan",
+  created_at: "2024-01-15T10:00:00Z",
+  updated_at: "2024-01-15T10:00:00Z",
 };
 
 describe("AddressForm", () => {
@@ -36,10 +37,8 @@ describe("AddressForm", () => {
     expect(screen.getByLabelText("郵便番号")).toBeInTheDocument();
     expect(screen.getByLabelText("都道府県")).toBeInTheDocument();
     expect(screen.getByLabelText("市区町村")).toBeInTheDocument();
-    expect(screen.getByLabelText("番地")).toBeInTheDocument();
-    expect(
-      screen.getByLabelText("建物名・部屋番号（任意）"),
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText("住所")).toBeInTheDocument();
+    expect(screen.getByLabelText("国")).toBeInTheDocument();
   });
 
   it("shows '追加する' button for new address", () => {

@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 
 interface AdminOrderStatusFormProps {
   currentStatus: OrderStatus;
-  orderId: string;
+  orderId: number;
 }
 
 export default function AdminOrderStatusForm({

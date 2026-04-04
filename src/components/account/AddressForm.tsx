@@ -12,11 +12,11 @@ interface AddressFormProps {
 
 export default function AddressForm({ address }: AddressFormProps) {
   const router = useRouter();
-  const [postalCode, setPostalCode] = useState(address?.postal_code || "");
-  const [prefecture, setPrefecture] = useState(address?.prefecture || "");
+  const [zipCode, setZipCode] = useState(address?.zip_code || "");
+  const [state, setState] = useState(address?.state || "");
   const [city, setCity] = useState(address?.city || "");
-  const [line1, setLine1] = useState(address?.line1 || "");
-  const [line2, setLine2] = useState(address?.line2 || "");
+  const [street, setStreet] = useState(address?.street || "");
+  const [country, setCountry] = useState(address?.country || "Japan");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,14 +28,14 @@ export default function AddressForm({ address }: AddressFormProps) {
       <Input
         label="郵便番号"
         placeholder="123-4567"
-        value={postalCode}
-        onChange={(e) => setPostalCode(e.target.value)}
+        value={zipCode}
+        onChange={(e) => setZipCode(e.target.value)}
       />
       <Input
         label="都道府県"
         placeholder="東京都"
-        value={prefecture}
-        onChange={(e) => setPrefecture(e.target.value)}
+        value={state}
+        onChange={(e) => setState(e.target.value)}
       />
       <Input
         label="市区町村"
@@ -44,16 +44,15 @@ export default function AddressForm({ address }: AddressFormProps) {
         onChange={(e) => setCity(e.target.value)}
       />
       <Input
-        label="番地"
-        placeholder="神宮前1-2-3"
-        value={line1}
-        onChange={(e) => setLine1(e.target.value)}
+        label="住所"
+        placeholder="神宮前1-2-3 ABCマンション 401号室"
+        value={street}
+        onChange={(e) => setStreet(e.target.value)}
       />
       <Input
-        label="建物名・部屋番号（任意）"
-        placeholder="ABCマンション 401号室"
-        value={line2}
-        onChange={(e) => setLine2(e.target.value)}
+        label="国"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
       />
       <div className="flex gap-4">
         <Button type="submit">{address ? "更新する" : "追加する"}</Button>
