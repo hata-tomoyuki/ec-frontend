@@ -1,8 +1,9 @@
 import type { CartItem } from "@/types";
 import { api } from "./client";
 
-export function getCart(): Promise<CartItem[]> {
-  return api.get<CartItem[]>("/cart");
+export async function getCart(): Promise<CartItem[]> {
+  const data = await api.get<CartItem[] | null>("/cart");
+  return data ?? [];
 }
 
 export function addCartItem(

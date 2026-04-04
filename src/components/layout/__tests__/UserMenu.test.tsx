@@ -49,6 +49,24 @@ describe("UserMenu", () => {
       screen.getByRole("link", { name: "マイページ" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "注文履歴" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "管理画面" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows admin link when userRole is admin", async () => {
+    const user = userEvent.setup();
+    render(
+      <UserMenu
+        userName="管理者"
+        userEmail="admin@example.com"
+        userRole="admin"
+      />,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "アカウントメニュー" }),
+    );
     expect(screen.getByRole("link", { name: "管理画面" })).toBeInTheDocument();
   });
 

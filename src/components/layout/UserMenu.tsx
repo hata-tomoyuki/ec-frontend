@@ -7,11 +7,13 @@ import { logoutAction } from "@/lib/api/auth";
 interface UserMenuProps {
   userName?: string;
   userEmail?: string;
+  userRole?: string;
 }
 
 export default function UserMenu({
   userName = "",
   userEmail = "",
+  userRole = "",
 }: UserMenuProps) {
   const [open, setOpen] = useState(false);
 
@@ -46,7 +48,9 @@ export default function UserMenu({
                 { href: "/account/orders", label: "注文履歴" },
                 { href: "/account/addresses", label: "住所管理" },
                 { href: "/account/profile", label: "プロフィール" },
-                { href: "/admin", label: "管理画面" },
+                ...(userRole === "admin"
+                  ? [{ href: "/admin", label: "管理画面" }]
+                  : []),
               ].map((item) => (
                 <Link
                   key={item.href}

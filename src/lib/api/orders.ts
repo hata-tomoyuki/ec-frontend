@@ -1,12 +1,14 @@
 import type { Order, OrderRow, OrderStatus } from "@/types";
 import { api } from "./client";
 
-export function getOrders(): Promise<OrderRow[]> {
-  return api.get<OrderRow[]>("/orders");
+export async function getOrders(): Promise<OrderRow[]> {
+  const data = await api.get<OrderRow[] | null>("/orders");
+  return data ?? [];
 }
 
-export function getOrder(id: number): Promise<OrderRow[]> {
-  return api.get<OrderRow[]>(`/orders/${id}`);
+export async function getOrder(id: number): Promise<OrderRow[]> {
+  const data = await api.get<OrderRow[] | null>(`/orders/${id}`);
+  return data ?? [];
 }
 
 export function placeOrder(

@@ -1,8 +1,9 @@
 import type { Address } from "@/types";
 import { api } from "./client";
 
-export function getAddresses(): Promise<Address[]> {
-  return api.get<Address[]>("/addresses");
+export async function getAddresses(): Promise<Address[]> {
+  const data = await api.get<Address[] | null>("/addresses");
+  return data ?? [];
 }
 
 export function getAddress(id: number): Promise<Address> {

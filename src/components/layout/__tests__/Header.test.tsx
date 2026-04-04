@@ -35,8 +35,21 @@ describe("Header", () => {
     );
   });
 
-  it("renders cart icon", () => {
+  it("shows login link when not logged in", () => {
     render(<Header />);
+    expect(screen.getByRole("link", { name: "ログイン" })).toHaveAttribute(
+      "href",
+      "/login",
+    );
+    expect(screen.queryByRole("link", { name: "カート" })).not.toBeInTheDocument();
+  });
+
+  it("shows cart icon and user menu when logged in", () => {
+    render(<Header userName="田中太郎" userEmail="tanaka@example.com" />);
     expect(screen.getByRole("link", { name: "カート" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "アカウントメニュー" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "ログイン" })).not.toBeInTheDocument();
   });
 });

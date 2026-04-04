@@ -16,15 +16,25 @@ async function getHeaderData() {
   let cartItemCount = 0;
   let userName = "";
   let userEmail = "";
+  let userRole = "";
+
   try {
-    const [items, user] = await Promise.all([getCart(), getMe()]);
-    cartItemCount = items.length;
+    const user = await getMe();
     userName = user.name;
     userEmail = user.email;
+    userRole = user.role;
   } catch {
-    // 未ログイン時はデフォルト値
+    // 未ログイン
   }
-  return { cartItemCount, userName, userEmail };
+
+  try {
+    const items = await getCart();
+    cartItemCount = items.length;
+  } catch {
+    // カート取得失敗
+  }
+
+  return { cartItemCount, userName, userEmail, userRole };
 }
 
 export default async function AccountLayout({
@@ -32,7 +42,8 @@ export default async function AccountLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { cartItemCount, userName, userEmail } = await getHeaderData();
+  const { cartItemCount, userName, userEmail, userRole } =
+    await getHeaderData();
 
   return (
     <>
@@ -40,6 +51,7 @@ export default async function AccountLayout({
         cartItemCount={cartItemCount}
         userName={userName}
         userEmail={userEmail}
+        userRole={userRole}
       />
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="flex flex-col md:flex-row gap-8">

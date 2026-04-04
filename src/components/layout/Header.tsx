@@ -14,12 +14,14 @@ interface HeaderProps {
   cartItemCount?: number;
   userName?: string;
   userEmail?: string;
+  userRole?: string;
 }
 
 export default function Header({
   cartItemCount = 0,
   userName = "",
   userEmail = "",
+  userRole = "",
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-stone-200">
@@ -42,8 +44,19 @@ export default function Header({
             </nav>
           </div>
           <div className="flex items-center gap-2">
-            <CartIcon count={cartItemCount} />
-            <UserMenu userName={userName} userEmail={userEmail} />
+            {userName ? (
+              <>
+                <CartIcon count={cartItemCount} />
+                <UserMenu userName={userName} userEmail={userEmail} userRole={userRole} />
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="text-sm font-medium text-teal-700 hover:text-teal-800 transition-colors px-3 py-1.5 rounded-lg hover:bg-teal-50"
+              >
+                ログイン
+              </Link>
+            )}
             <MobileMenu />
           </div>
         </div>
