@@ -29,7 +29,7 @@ const order: Order = {
 describe("OrderCard", () => {
   it("renders order ID", () => {
     render(<OrderCard order={order} />);
-    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(screen.getByText("注文 #1")).toBeInTheDocument();
   });
 
   it("links to order detail page", () => {
