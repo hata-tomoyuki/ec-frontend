@@ -44,9 +44,17 @@ export default function AdminProductForm({
       quantity: Number(stock),
     };
 
+    const selectedCategoryId = categoryId ? Number(categoryId) : undefined;
+
     try {
-      if (isEdit) await updateProductAction(product.id, data);
-      else await createProductAction(data);
+      if (isEdit)
+        await updateProductAction(
+          product.id,
+          data,
+          selectedCategoryId,
+          product.category_id || undefined,
+        );
+      else await createProductAction(data, selectedCategoryId);
       router.push("/admin/products");
     } catch (e) {
       setError(e instanceof Error ? e.message : "保存に失敗しました");

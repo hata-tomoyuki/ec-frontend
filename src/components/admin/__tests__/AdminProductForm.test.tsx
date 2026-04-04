@@ -105,7 +105,7 @@ describe("AdminProductForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("sends quantity when creating a product", async () => {
+  it("sends quantity and categoryId when creating a product", async () => {
     const user = userEvent.setup();
     render(<AdminProductForm categories={categories} />);
 
@@ -118,11 +118,12 @@ describe("AdminProductForm", () => {
     await waitFor(() => {
       expect(mockCreateProductAction).toHaveBeenCalledWith(
         expect.objectContaining({ quantity: 25 }),
+        1,
       );
     });
   });
 
-  it("sends quantity when updating a product", async () => {
+  it("sends quantity and categoryId when updating a product", async () => {
     const user = userEvent.setup();
     render(<AdminProductForm categories={categories} product={product} />);
 
@@ -132,6 +133,8 @@ describe("AdminProductForm", () => {
       expect(mockUpdateProductAction).toHaveBeenCalledWith(
         product.id,
         expect.objectContaining({ quantity: 50 }),
+        1,
+        1,
       );
     });
   });

@@ -36,3 +36,19 @@ export function updateCategory(
 export function deleteCategory(id: number): Promise<void> {
   return api.delete<void>(`/categories/${id}`);
 }
+
+export function addProductToCategory(
+  categoryId: number,
+  productId: number,
+): Promise<void> {
+  return api.post<void>(`/categories/${categoryId}/products`, {
+    product_id: productId,
+  });
+}
+
+export function removeProductFromCategory(
+  categoryId: number,
+  productId: number,
+): Promise<void> {
+  return api.delete<void>(`/categories/${categoryId}/products/${productId}`);
+}
