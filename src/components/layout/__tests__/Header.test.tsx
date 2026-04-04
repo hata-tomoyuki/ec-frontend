@@ -41,7 +41,9 @@ describe("Header", () => {
       "href",
       "/login",
     );
-    expect(screen.queryByRole("link", { name: "カート" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "カート" }),
+    ).not.toBeInTheDocument();
   });
 
   it("shows cart icon and user menu when logged in", () => {
@@ -50,6 +52,8 @@ describe("Header", () => {
     expect(
       screen.getByRole("button", { name: "アカウントメニュー" }),
     ).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "ログイン" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "ログイン" }),
+    ).not.toBeInTheDocument();
   });
 });

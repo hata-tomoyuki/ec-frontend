@@ -47,7 +47,11 @@ export default function Header({
             {userName ? (
               <>
                 <CartIcon count={cartItemCount} />
-                <UserMenu userName={userName} userEmail={userEmail} userRole={userRole} />
+                <UserMenu
+                  userName={userName}
+                  userEmail={userEmail}
+                  userRole={userRole}
+                />
               </>
             ) : (
               <Link

@@ -68,6 +68,7 @@ export function groupOrderRows(rows: OrderRow[]): Order[] {
     }
   }
   return Array.from(ordersMap.values()).sort(
-    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
   );
 }
