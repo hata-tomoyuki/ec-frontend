@@ -21,7 +21,13 @@ export default async function AdminProductsPage({
   const categoryId = Number(params.category_id) || undefined;
 
   const [result, categories] = await Promise.all([
-    getProductsPaginated({ page, limit, sort, search, category_id: categoryId }),
+    getProductsPaginated({
+      page,
+      limit,
+      sort,
+      search,
+      category_id: categoryId,
+    }),
     getCategories(),
   ]);
 
@@ -35,7 +41,11 @@ export default async function AdminProductsPage({
       <div className="bg-white rounded-xl border border-stone-200 shadow-sm">
         <AdminProductTable products={result.data} />
       </div>
-      <Pagination total={result.total} page={result.page} limit={result.limit} />
+      <Pagination
+        total={result.total}
+        page={result.page}
+        limit={result.limit}
+      />
     </div>
   );
 }
