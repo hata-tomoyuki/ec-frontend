@@ -6,12 +6,14 @@ export async function getProductsPaginated(params?: {
   limit?: number;
   sort?: string;
   search?: string;
+  category_id?: number;
 }): Promise<PaginatedProducts> {
   const query = new URLSearchParams();
   if (params?.page) query.set("page", String(params.page));
   if (params?.limit) query.set("limit", String(params.limit));
   if (params?.sort) query.set("sort", params.sort);
   if (params?.search) query.set("search", params.search);
+  if (params?.category_id) query.set("category_id", String(params.category_id));
   const qs = query.toString();
   return api.get<PaginatedProducts>(`/products${qs ? `?${qs}` : ""}`);
 }

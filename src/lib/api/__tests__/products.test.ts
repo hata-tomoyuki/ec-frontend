@@ -79,6 +79,16 @@ describe("getProductsPaginated", () => {
 
     expect(mockApi.get).toHaveBeenCalledWith("/products?page=1&limit=20");
   });
+
+  it("includes category_id in query string", async () => {
+    mockApi.get.mockResolvedValue(paginatedResponse);
+
+    await getProductsPaginated({ page: 1, limit: 20, category_id: 3 });
+
+    expect(mockApi.get).toHaveBeenCalledWith(
+      "/products?page=1&limit=20&category_id=3",
+    );
+  });
 });
 
 describe("getProducts", () => {

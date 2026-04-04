@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import type { Category } from "@/types";
 
 const sortOptions = [
   { value: "", label: "並び替え" },
@@ -11,7 +12,11 @@ const sortOptions = [
   { value: "name_asc", label: "名前順" },
 ];
 
-export default function ProductToolbar() {
+interface ProductToolbarProps {
+  categories?: Category[];
+}
+
+export default function ProductToolbar({ categories }: ProductToolbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,6 +49,11 @@ export default function ProductToolbar() {
     updateParams({ sort: e.target.value });
   }
 
+  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    e.preventDefault();
+    updateParams({ category_id: e.target.value });
+  }
+
   return (
     <div className="flex flex-col sm:flex-row gap-3 mb-6">
       <form onSubmit={handleSearch} className="flex flex-1 gap-2">
@@ -72,6 +82,20 @@ export default function ProductToolbar() {
           </option>
         ))}
       </select>
+      {categories && (
+        <select
+          value={searchParams.get("category_id") ?? ""}
+          onChange={handleCategoryChange}
+          className="rounded-lg border border-stone-300 px-4 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+        >
+          <option value="">すべてのカテゴリ</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 }
