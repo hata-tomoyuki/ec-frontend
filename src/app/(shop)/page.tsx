@@ -17,7 +17,10 @@ export default async function HomePage() {
   }
   const categories = allCategories
     .filter((c) => (categoryProductCounts.get(c.id) ?? 0) > 0)
-    .map((c) => ({ ...c, product_count: categoryProductCounts.get(c.id) ?? 0 }));
+    .map((c) => ({
+      ...c,
+      product_count: categoryProductCounts.get(c.id) ?? 0,
+    }));
 
   const featuredProducts = products.slice(0, 4);
 

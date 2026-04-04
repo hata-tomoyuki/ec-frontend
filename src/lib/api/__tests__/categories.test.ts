@@ -83,7 +83,12 @@ describe("getCategoryProducts", () => {
   });
 
   it("filters out products with zero quantity", async () => {
-    const outOfStock = { ...product, id: 11, name: "在庫切れ商品", quantity: 0 };
+    const outOfStock = {
+      ...product,
+      id: 11,
+      name: "在庫切れ商品",
+      quantity: 0,
+    };
     mockApi.get.mockResolvedValue([product, outOfStock]);
 
     const result = await getCategoryProducts(1);
