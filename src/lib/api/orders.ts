@@ -62,5 +62,7 @@ export function groupOrderRows(rows: OrderRow[]): Order[] {
       order.total += row.quantity * row.price_in_cents;
     }
   }
-  return Array.from(ordersMap.values());
+  return Array.from(ordersMap.values()).sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  );
 }
