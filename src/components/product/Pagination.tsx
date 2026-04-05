@@ -28,28 +28,88 @@ export default function Pagination({ total, page, limit }: PaginationProps) {
 
   if (totalPages <= 1) return null;
 
+  const offset = 2;
+
+  function generateDisplayNumbers(): (number | "...")[] {
+    let start = Math.max(1, page - offset);
+    let end = Math.min(totalPages, page + offset);
+
+    if (page - offset < 1) {
+      end = Math.min(totalPages, end + (1 - (page - offset)));
+    }
+    if (page + offset > totalPages) {
+      start = Math.max(1, start - (page + offset - totalPages));
+    }
+
+    const pages: (number | "...")[] = [];
+
+    // 先頭ページ + 省略記号
+    if (start > 1) {
+      pages.push(1);
+      if (start > 2) pages.push("...");
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    // 省略記号 + 末尾ページ
+    if (end < totalPages) {
+      if (end < totalPages - 1) pages.push("...");
+      pages.push(totalPages);
+    }
+
+    return pages;
+  }
+
+  const pageItems = generateDisplayNumbers();
+
+  const linkClass =
+    "flex items-center justify-center rounded-full w-8 h-8 text-sm border border-teal-700 transition-colors hover:bg-teal-50";
+
   return (
-    <div className="flex items-center justify-center space-x-4">
-      {page - 1 < 1 ? (
-        <span className="text-center text-stone-300">前へ</span>
+    <div className="flex items-center justify-center gap-2">
+      {page <= 1 ? (
+        <span className="px-2 text-sm text-stone-300">前へ</span>
       ) : (
-        <Link href={buildHref(page - 1)} className="text-center">
+        <Link
+          href={buildHref(page - 1)}
+          className="px-2 text-sm text-teal-700 hover:underline"
+        >
           前へ
         </Link>
       )}
-      {[...Array(totalPages)].map((_, i) => (
-        <Link
-          href={buildHref(i + 1)}
-          key={i}
-          className={`rounded-full aspect-square w-6 text-center border border-teal-700  ${i + 1 === page ? "bg-teal-700 text-white" : "bg-white"}`}
-        >
-          {i + 1}
-        </Link>
-      ))}
-      {page + 1 > totalPages ? (
-        <span className="text-center text-stone-300">次へ</span>
+
+      {pageItems.map((item, i) =>
+        item === "..." ? (
+          <span
+            key={`ellipsis-${i}`}
+            className="w-8 text-center text-stone-400"
+          >
+            ...
+          </span>
+        ) : (
+          <Link
+            href={buildHref(item)}
+            key={item}
+            className={`${linkClass} ${
+              item === page
+                ? "bg-teal-700 text-white border-teal-700"
+                : "bg-white text-teal-700"
+            }`}
+          >
+            {item}
+          </Link>
+        ),
+      )}
+
+      {page >= totalPages ? (
+        <span className="px-2 text-sm text-stone-300">次へ</span>
       ) : (
-        <Link href={buildHref(page + 1)} className="text-center">
+        <Link
+          href={buildHref(page + 1)}
+          className="px-2 text-sm text-teal-700 hover:underline"
+        >
           次へ
         </Link>
       )}
