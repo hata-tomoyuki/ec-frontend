@@ -1,4 +1,4 @@
-import { getOrders, groupOrderRows } from "@/lib/api/orders";
+import { getOrders } from "@/lib/api/orders";
 import OrderCard from "@/components/order/OrderCard";
 import EmptyState from "@/components/ui/EmptyState";
 
@@ -7,8 +7,7 @@ export const metadata = {
 };
 
 export default async function OrdersPage() {
-  const rows = await getOrders();
-  const orders = groupOrderRows(rows);
+  const orders = await getOrders();
 
   return (
     <div>

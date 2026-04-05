@@ -1,9 +1,17 @@
 import type { Order, OrderRow, OrderStatus } from "@/types";
 import { api } from "./client";
 
-export async function getOrders(): Promise<OrderRow[]> {
-  const data = await api.get<OrderRow[] | null>("/orders");
-  return data ?? [];
+export async function getOrders(): Promise<Order[]> {
+  const res = await api.get<{ data: PaginatedOrderRow[] }>("/orders");
+  return res.data.map((row) => ({
+    id: row.id,
+    customer_id: row.customer_id,
+    status: row.status,
+    items: [],
+    total: row.total_in_cents,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  }));
 }
 
 export async function getOrder(id: number): Promise<OrderRow[]> {
@@ -21,8 +29,27 @@ export function cancelOrder(id: number): Promise<void> {
   return api.put<void>(`/orders/${id}/cancel`);
 }
 
-export function getAdminOrders(): Promise<OrderRow[]> {
-  return api.get<OrderRow[]>("/admin/orders");
+interface PaginatedOrderRow {
+  id: number;
+  customer_id: number;
+  status: OrderStatus;
+  item_count: number;
+  total_in_cents: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getAdminOrders(): Promise<Order[]> {
+  const res = await api.get<{ data: PaginatedOrderRow[] }>("/admin/orders");
+  return res.data.map((row) => ({
+    id: row.id,
+    customer_id: row.customer_id,
+    status: row.status,
+    items: [],
+    total: row.total_in_cents,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  }));
 }
 
 export async function getAdminOrder(id: number): Promise<OrderRow[]> {

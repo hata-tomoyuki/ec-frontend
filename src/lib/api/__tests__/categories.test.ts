@@ -52,7 +52,7 @@ beforeEach(() => {
 
 describe("getCategories", () => {
   it("calls api.get with /categories and return the list", async () => {
-    mockApi.get.mockResolvedValue([category]);
+    mockApi.get.mockResolvedValue({ data: [category] });
 
     const result = await getCategories();
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMe } from "@/lib/api/users";
-import { getOrders, groupOrderRows } from "@/lib/api/orders";
+import { getOrders } from "@/lib/api/orders";
 import { getAddresses } from "@/lib/api/addresses";
 import Card from "@/components/ui/Card";
 
@@ -9,12 +9,11 @@ export const metadata = {
 };
 
 export default async function AccountDashboardPage() {
-  const [user, orderRows, addresses] = await Promise.all([
+  const [user, orders, addresses] = await Promise.all([
     getMe(),
     getOrders(),
     getAddresses(),
   ]);
-  const orders = groupOrderRows(orderRows);
 
   return (
     <div>

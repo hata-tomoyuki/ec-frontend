@@ -42,13 +42,28 @@ beforeEach(() => {
 });
 
 describe("getOrders", () => {
-  it("calls api.get with /orders and returns rows", async () => {
-    mockApi.get.mockResolvedValue([orderRow]);
+  it("calls api.get with /orders and returns mapped orders", async () => {
+    mockApi.get.mockResolvedValue({
+      data: [
+        {
+          id: 1,
+          customer_id: 1,
+          status: "pending",
+          item_count: 2,
+          total_in_cents: 9960,
+          created_at: "2026-04-04T00:00:00Z",
+          updated_at: "2026-04-04T00:00:00Z",
+        },
+      ],
+    });
 
     const result = await getOrders();
 
     expect(mockApi.get).toHaveBeenCalledWith("/orders");
-    expect(result).toEqual([orderRow]);
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(1);
+    expect(result[0].total).toBe(9960);
+    expect(result[0].status).toBe("pending");
   });
 });
 
@@ -87,13 +102,27 @@ describe("cancelOrder", () => {
 });
 
 describe("getAdminOrders", () => {
-  it("calls api.get with /admin/orders and returns rows", async () => {
-    mockApi.get.mockResolvedValue([orderRow]);
+  it("calls api.get with /admin/orders and returns mapped orders", async () => {
+    mockApi.get.mockResolvedValue({
+      data: [
+        {
+          id: 1,
+          customer_id: 1,
+          status: "pending",
+          item_count: 2,
+          total_in_cents: 9960,
+          created_at: "2026-04-04T00:00:00Z",
+          updated_at: "2026-04-04T00:00:00Z",
+        },
+      ],
+    });
 
     const result = await getAdminOrders();
 
     expect(mockApi.get).toHaveBeenCalledWith("/admin/orders");
-    expect(result).toEqual([orderRow]);
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(1);
+    expect(result[0].total).toBe(9960);
   });
 });
 

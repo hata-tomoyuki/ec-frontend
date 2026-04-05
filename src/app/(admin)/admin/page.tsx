@@ -2,17 +2,16 @@ import Link from "next/link";
 import { formatPrice } from "@/data/mock";
 import { getProducts } from "@/lib/api/products";
 import { getCategories } from "@/lib/api/categories";
-import { getAdminOrders, groupOrderRows } from "@/lib/api/orders";
+import { getAdminOrders } from "@/lib/api/orders";
 import AdminStatsCard from "@/components/admin/AdminStatsCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 
 export default async function AdminDashboardPage() {
-  const [products, categories, orderRows] = await Promise.all([
+  const [products, categories, orders] = await Promise.all([
     getProducts(),
     getCategories(),
     getAdminOrders(),
   ]);
-  const orders = groupOrderRows(orderRows);
   const pendingOrders = orders.filter((o) => o.status === "pending");
 
   return (

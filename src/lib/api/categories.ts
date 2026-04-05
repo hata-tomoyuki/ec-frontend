@@ -1,8 +1,9 @@
 import type { Category, Product } from "@/types";
 import { api } from "./client";
 
-export function getCategories(): Promise<Category[]> {
-  return api.get<Category[]>("/categories");
+export async function getCategories(): Promise<Category[]> {
+  const res = await api.get<{ data: Category[] }>("/categories");
+  return res.data;
 }
 
 export function getCategory(id: number): Promise<Category> {

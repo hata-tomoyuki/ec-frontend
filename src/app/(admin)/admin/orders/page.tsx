@@ -1,9 +1,8 @@
-import { getAdminOrders, groupOrderRows } from "@/lib/api/orders";
+import { getAdminOrders } from "@/lib/api/orders";
 import AdminOrderTable from "@/components/admin/AdminOrderTable";
 
 export default async function AdminOrdersPage() {
-  const rows = await getAdminOrders();
-  const orders = groupOrderRows(rows);
+  const orders = await getAdminOrders();
 
   return (
     <div className="space-y-6">
