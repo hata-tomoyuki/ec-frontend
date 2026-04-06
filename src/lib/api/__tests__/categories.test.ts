@@ -14,6 +14,7 @@ const mockApi = vi.hoisted(() => ({
   post: vi.fn(),
   put: vi.fn(),
   delete: vi.fn(),
+  publicGet: vi.fn(),
 }));
 
 vi.mock("@/lib/api/client", () => ({
@@ -52,33 +53,36 @@ beforeEach(() => {
 
 describe("getCategories", () => {
   it("calls api.get with /categories and return the list", async () => {
-    mockApi.get.mockResolvedValue({ data: [category] });
+    mockApi.publicGet.mockResolvedValue({ data: [category] });
 
     const result = await getCategories();
 
-    expect(mockApi.get).toHaveBeenCalledWith("/categories");
+    expect(mockApi.publicGet).toHaveBeenCalledWith("/categories", 300);
     expect(result).toEqual([category]);
   });
 });
 
 describe("getCategory", () => {
   it("calls api.get with /categories/:id and return the category", async () => {
-    mockApi.get.mockResolvedValue(category);
+    mockApi.publicGet.mockResolvedValue(category);
 
     const result = await getCategory(1);
 
-    expect(mockApi.get).toHaveBeenCalledWith("/categories/1");
+    expect(mockApi.publicGet).toHaveBeenCalledWith("/categories/1", 300);
     expect(result).toEqual(category);
   });
 });
 
 describe("getCategoryProducts", () => {
   it("calls api.get with /categories/:id/products and return the products", async () => {
-    mockApi.get.mockResolvedValue([product]);
+    mockApi.publicGet.mockResolvedValue([product]);
 
     const result = await getCategoryProducts(1);
 
-    expect(mockApi.get).toHaveBeenCalledWith("/categories/1/products");
+    expect(mockApi.publicGet).toHaveBeenCalledWith(
+      "/categories/1/products",
+      180,
+    );
     expect(result).toEqual([product]);
   });
 
@@ -89,7 +93,7 @@ describe("getCategoryProducts", () => {
       name: "在庫切れ商品",
       quantity: 0,
     };
-    mockApi.get.mockResolvedValue([product, outOfStock]);
+    mockApi.publicGet.mockResolvedValue([product, outOfStock]);
 
     const result = await getCategoryProducts(1);
 

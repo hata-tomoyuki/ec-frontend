@@ -14,6 +14,7 @@ const mockApi = vi.hoisted(() => ({
   post: vi.fn(),
   put: vi.fn(),
   delete: vi.fn(),
+  publicGet: vi.fn(),
 }));
 
 vi.mock("@/lib/api/client", () => ({
@@ -49,16 +50,16 @@ beforeEach(() => {
 
 describe("getProductsPaginated", () => {
   it("calls /products with no query params by default", async () => {
-    mockApi.get.mockResolvedValue(paginatedResponse);
+    mockApi.publicGet.mockResolvedValue(paginatedResponse);
 
     const result = await getProductsPaginated();
 
-    expect(mockApi.get).toHaveBeenCalledWith("/products");
+    expect(mockApi.publicGet).toHaveBeenCalledWith("/products", 120);
     expect(result).toEqual(paginatedResponse);
   });
 
   it("builds query string from params", async () => {
-    mockApi.get.mockResolvedValue(paginatedResponse);
+    mockApi.publicGet.mockResolvedValue(paginatedResponse);
 
     await getProductsPaginated({
       page: 2,
@@ -67,26 +68,31 @@ describe("getProductsPaginated", () => {
       search: "シャツ",
     });
 
-    expect(mockApi.get).toHaveBeenCalledWith(
+    expect(mockApi.publicGet).toHaveBeenCalledWith(
       "/products?page=2&limit=10&sort=price_asc&search=%E3%82%B7%E3%83%A3%E3%83%84",
+      120,
     );
   });
 
   it("omits falsy params from query string", async () => {
-    mockApi.get.mockResolvedValue(paginatedResponse);
+    mockApi.publicGet.mockResolvedValue(paginatedResponse);
 
     await getProductsPaginated({ page: 1, limit: 20 });
 
-    expect(mockApi.get).toHaveBeenCalledWith("/products?page=1&limit=20");
+    expect(mockApi.publicGet).toHaveBeenCalledWith(
+      "/products?page=1&limit=20",
+      120,
+    );
   });
 
   it("includes category_id in query string", async () => {
-    mockApi.get.mockResolvedValue(paginatedResponse);
+    mockApi.publicGet.mockResolvedValue(paginatedResponse);
 
     await getProductsPaginated({ page: 1, limit: 20, category_id: 3 });
 
-    expect(mockApi.get).toHaveBeenCalledWith(
+    expect(mockApi.publicGet).toHaveBeenCalledWith(
       "/products?page=1&limit=20&category_id=3",
+      120,
     );
   });
 });
@@ -94,7 +100,7 @@ describe("getProductsPaginated", () => {
 describe("getProducts", () => {
   it("returns data array from paginated response, filtering out-of-stock", async () => {
     const outOfStock = { ...product, id: 2, quantity: 0 };
-    mockApi.get.mockResolvedValue({
+    mockApi.publicGet.mockResolvedValue({
       data: [product, outOfStock],
       total: 2,
       page: 1,
@@ -103,18 +109,18 @@ describe("getProducts", () => {
 
     const result = await getProducts();
 
-    expect(mockApi.get).toHaveBeenCalledWith("/products?limit=100");
+    expect(mockApi.publicGet).toHaveBeenCalledWith("/products?limit=100", 120);
     expect(result).toEqual([product]);
   });
 });
 
 describe("getProduct", () => {
   it("calls api.get with /products/:id and returns the product", async () => {
-    mockApi.get.mockResolvedValue(product);
+    mockApi.publicGet.mockResolvedValue(product);
 
     const result = await getProduct(1);
 
-    expect(mockApi.get).toHaveBeenCalledWith("/products/1");
+    expect(mockApi.publicGet).toHaveBeenCalledWith("/products/1", 300);
     expect(result).toEqual(product);
   });
 });
