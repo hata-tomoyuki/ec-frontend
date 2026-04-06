@@ -2,16 +2,19 @@ import type { Category, Product } from "@/types";
 import { api } from "./client";
 
 export async function getCategories(): Promise<Category[]> {
-  const res = await api.get<{ data: Category[] }>("/categories");
+  const res = await api.publicGet<{ data: Category[] }>("/categories", 300);
   return res.data;
 }
 
 export function getCategory(id: number): Promise<Category> {
-  return api.get<Category>(`/categories/${id}`);
+  return api.publicGet<Category>(`/categories/${id}`, 300);
 }
 
 export async function getCategoryProducts(id: number): Promise<Product[]> {
-  const products = await api.get<Product[]>(`/categories/${id}/products`);
+  const products = await api.publicGet<Product[]>(
+    `/categories/${id}/products`,
+    180,
+  );
   return products.filter((p) => p.quantity > 0);
 }
 

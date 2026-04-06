@@ -15,7 +15,10 @@ export async function getProductsPaginated(params?: {
   if (params?.search) query.set("search", params.search);
   if (params?.category_id) query.set("category_id", String(params.category_id));
   const qs = query.toString();
-  return api.get<PaginatedProducts>(`/products${qs ? `?${qs}` : ""}`);
+  return api.publicGet<PaginatedProducts>(
+    `/products${qs ? `?${qs}` : ""}`,
+    120,
+  );
 }
 
 export async function getProducts(): Promise<Product[]> {
@@ -24,7 +27,7 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export function getProduct(id: number): Promise<Product> {
-  return api.get<Product>(`/products/${id}`);
+  return api.publicGet<Product>(`/products/${id}`, 300);
 }
 
 export function createProduct(data: {

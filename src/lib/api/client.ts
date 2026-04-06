@@ -50,6 +50,24 @@ async function fetchApi<T>(
   return res.json() as Promise<T>;
 }
 
+// --- Public fetch (no cookies, with revalidation cache) ---
+
+async function publicFetchApi<T>(path: string, revalidate: number): Promise<T> {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    cache: "force-cache",
+    next: { revalidate },
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({ error: "Unknown error" }));
+    throw new ApiError(res.status, body.error ?? "Unknown error");
+  }
+
+  return res.json() as Promise<T>;
+}
+
 // --- Public API ---
 
 export const api = {
@@ -69,6 +87,10 @@ export const api = {
       method: "PUT",
       body: body != null ? JSON.stringify(body) : undefined,
     });
+  },
+
+  publicGet<T>(path: string, revalidate: number) {
+    return publicFetchApi<T>(path, revalidate);
   },
 
   delete<T>(path: string) {
